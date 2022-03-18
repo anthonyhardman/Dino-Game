@@ -10,8 +10,7 @@ namespace DinoGameTeam
     {
         public Window window {get; set;}
         public Dinosaur dino { get; set;}
-        public Cactus[] cacti;
-        public Bird[] birds;
+        public IEnemy[] enemies;
         private bool gameRunning;
         private bool shouldExit;
 
@@ -28,7 +27,10 @@ namespace DinoGameTeam
 
                 if (gameRunning)
                 {
-
+                    foreach (IEnemy enemy in enemies)
+                    {
+                        enemy.Update(deltaTime);
+                    }
                 }
             }
         }
