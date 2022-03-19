@@ -24,6 +24,7 @@ namespace DinoGameTeam
             _depthBuffer = new byte[width, height];
             Console.CursorVisible = false;
             Console.SetWindowSize(_width + 2, _height + 2);
+            Console.OutputEncoding = Encoding.UTF8;
         }
 
         public void Draw(params IDrawable[] drawables)
@@ -43,7 +44,7 @@ namespace DinoGameTeam
                     int absolutePixelY = (int)drawableItem.Y + pixel.Y;
                     if (absolutePixelX >= 0 && absolutePixelX < _width
                         && absolutePixelY >= 0 && absolutePixelY < _height
-                        && pixel.Depth < _depthBuffer[absolutePixelX, absolutePixelY])
+                        && pixel.Depth <= _depthBuffer[absolutePixelX, absolutePixelY])
                     {
                         ConsolePixel cbPixel = _consoleBuffer[absolutePixelX, absolutePixelY];
                         // If the pixel doesn't want to use it's own background use the consoles

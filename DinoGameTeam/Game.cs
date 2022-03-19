@@ -17,10 +17,19 @@ namespace DinoGameTeam
         double deltaTime = 0.0;
         DateTime lastFrame = DateTime.Now;
 
+        // Debug delete later----------------------------------------------------------------
+        Cactus cactus = new Cactus();
+        Bird bird = new Bird();
+        Text score = new Text("Score: 0123456789", 0, 0, 0, 0, 0, false, 0, 125, 33, 255);
+        Text gameOver = new Text("resources/gameOver/gameover.txt", 72, 15, 255, 0, 0, true);
+        Random random = new Random();
+        // ----------------------------------------------------------------------------------
+
         public Game()
         {
+            dino = new Dinosaur();
             window = new Window(200, 35);
-            window.SetClearColor(255, 255, 255);
+            window.SetClearColor(0, 0, 0);
         }
 
 
@@ -32,6 +41,13 @@ namespace DinoGameTeam
                 deltaTime = (currentFrame - lastFrame).TotalSeconds;
                 lastFrame = currentFrame;
 
+                // Debug delete later----------------------------------------------------------------
+                score.UpdateText($"Score: {random.Next()}");
+                score.UpdateTextColor(random.Next(255), random.Next(255), random.Next(255));
+                score.UpdateBackgroundColor(random.Next(255), random.Next(255), random.Next(255));
+                gameOver.UpdateTextColor(random.Next(255), random.Next(255), random.Next(255));
+                // ----------------------------------------------------------------------------------
+
                 if (gameRunning)
                 {
                     foreach (IDrawable enemy in enemies)
@@ -40,7 +56,7 @@ namespace DinoGameTeam
                     }
                 }
 
-                window.Draw();
+                window.Draw(dino, cactus, bird, score, gameOver);
             }
         }
 
