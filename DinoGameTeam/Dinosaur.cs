@@ -13,8 +13,12 @@ namespace DinoGameTeam
         public Pixel[] Pixels { get; set; }
 
         private bool isJumping;
+        public bool isDucking;
         //private double timeSinceJump;
         private double velocity;
+        private Animation walkAnimation;
+        private Animation duckAnimation;
+        private double timeDucking = 0;
 
         public Dinosaur()
         {
@@ -23,11 +27,36 @@ namespace DinoGameTeam
             X = 0;
             Y = 35;
             Pixels = Utils.LoadPixelsFromFile("resources/dino/dino.dop", '♥', 1);
+
+            walkAnimation = new Animation(0.1, '♥', "resources/dino/walking/walk1.dop",
+                "resources/dino/walking/walk2.dop");
+
+            duckAnimation = new Animation(0.1, '♥', "resources/dino/ducking/walk1.dop",
+                "resources/dino/ducking/walk2.dop");
         }
 
         public void Update(double dT)
         {
+            if (isJumping)
+            {
 
+            }
+            else if (isDucking)
+            {
+                timeDucking += dT;
+                duckAnimation.Update(dT);
+                Pixels = duckAnimation.ActiveFrame;
+                if (timeDucking > 0.4)
+                {
+                    isDucking = false;
+                    timeDucking = 0;
+                }
+            }
+            else
+            {
+                walkAnimation.Update(dT);
+                Pixels = walkAnimation.ActiveFrame;
+            }
         }
 
         public void Jump()
@@ -37,7 +66,10 @@ namespace DinoGameTeam
 
         public void Duck()
         {
-
+            if (!isJumping)
+            {
+                isDucking = true;
+            }
         }
     }
 }

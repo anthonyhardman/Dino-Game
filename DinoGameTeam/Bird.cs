@@ -12,6 +12,7 @@ namespace DinoGameTeam
         public double Y { get; set; }
         public Pixel[] Pixels { get; set; }
         public double Velocity { get; set; }
+        private Animation flyingAnimation;
 
         public Bird()
         {
@@ -19,12 +20,14 @@ namespace DinoGameTeam
             // I was only using these to enusre I completed my stories - Anthony
             X = 100;
             Y = 17;
-            Pixels = Utils.LoadPixelsFromFile("resources/bird/bird.dop", '¥', 2);
+            flyingAnimation = new Animation(0.1, '¥', "Resources/Bird/flying/birdflying1.dop",
+                "Resources/Bird/flying/birdflying2.dop");
         }
 
         public void Update(double dT)
         {
-
+            flyingAnimation.Update(dT);
+            Pixels = flyingAnimation.ActiveFrame;
         }
     }
 }
