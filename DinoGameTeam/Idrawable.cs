@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DinoGameTeam
 {
-    internal interface IDrawable
+    public interface IDrawable
     {
         public double X { get; set; }
         public double Y { get; set; }

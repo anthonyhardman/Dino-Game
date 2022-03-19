@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DinoGameTeam
 {
-    internal class Bird : IDrawable, IEnemy
+    internal class Bird : IDrawable
     {
         public double X { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
         public double Y { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }

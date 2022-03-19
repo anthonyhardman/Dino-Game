@@ -13,7 +13,7 @@ namespace DinoGameTeam
 
         public IDrawable GetEnemy()
         {
-
+            throw new NotImplementedException();
         }
     }
 }
