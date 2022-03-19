@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "DinoGameTeam": {
+      "commandName": "Project",
+      "workingDirectory": "$(projectdir)"
+    }
+  }
+}
