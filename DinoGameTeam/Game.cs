@@ -10,12 +10,19 @@ namespace DinoGameTeam
     {
         public Window window {get; set;}
         public Dinosaur dino { get; set;}
-        public IEnemy[] enemies;
+        public IDrawable[] enemies;
         private bool gameRunning;
         private bool shouldExit;
 
         double deltaTime = 0.0;
         DateTime lastFrame = DateTime.Now;
+
+        public Game()
+        {
+            window = new Window(200, 35);
+            window.SetClearColor(255, 255, 255);
+        }
+
 
         public void Run()
         {
@@ -27,11 +34,13 @@ namespace DinoGameTeam
 
                 if (gameRunning)
                 {
-                    foreach (IEnemy enemy in enemies)
+                    foreach (IDrawable enemy in enemies)
                     {
                         enemy.Update(deltaTime);
                     }
                 }
+
+                window.Draw();
             }
         }
 
