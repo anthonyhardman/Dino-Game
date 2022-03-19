@@ -28,8 +28,9 @@ namespace DinoGameTeam
         public Game()
         {
             dino = new Dinosaur();
-            window = new Window(200, 35);
+            window = new Window(200, 45);
             window.SetClearColor(0, 0, 0);
+
         }
 
 
@@ -41,19 +42,26 @@ namespace DinoGameTeam
                 deltaTime = (currentFrame - lastFrame).TotalSeconds;
                 lastFrame = currentFrame;
 
+                ProcessInput();
+
                 // Debug delete later----------------------------------------------------------------
                 score.UpdateText($"Score: {random.Next()}");
                 score.UpdateTextColor(random.Next(255), random.Next(255), random.Next(255));
                 score.UpdateBackgroundColor(random.Next(255), random.Next(255), random.Next(255));
                 gameOver.UpdateTextColor(random.Next(255), random.Next(255), random.Next(255));
+                gameRunning = true;
                 // ----------------------------------------------------------------------------------
 
                 if (gameRunning)
                 {
-                    foreach (IDrawable enemy in enemies)
+                    dino.Update(deltaTime);
+                    // Debug delete later----------------------------------------------------------------
+                    bird.Update(deltaTime);
+                    // ----------------------------------------------------------------------------------
+                    /*foreach (IDrawable enemy in enemies)
                     {
                         enemy.Update(deltaTime);
-                    }
+                    }*/
                 }
 
                 window.Draw(dino, cactus, bird, score, gameOver);
@@ -72,7 +80,23 @@ namespace DinoGameTeam
 
         public void ProcessInput()
         {
+            if (Console.KeyAvailable)
+            {
+                ConsoleKey key = Console.ReadKey().Key;
+                
+                if (key == ConsoleKey.DownArrow || key == ConsoleKey.S)
+                {
+                    dino.Duck();
+                }
+            }
+            
 
+            // Clear the input buffer so we don't have odd animation bugs
+            while(Console.KeyAvailable)
+            {
+                Console.ReadKey(true);
+            }
+                
         }
     }
 }

@@ -23,7 +23,7 @@ namespace DinoGameTeam
             }
             _depthBuffer = new byte[width, height];
             Console.CursorVisible = false;
-            Console.SetWindowSize(_width + 2, _height + 2);
+            Console.SetWindowSize(_width, _height + 1);
             Console.OutputEncoding = Encoding.UTF8;
         }
 
@@ -68,14 +68,17 @@ namespace DinoGameTeam
                 {
                     consoleString.Append(_consoleBuffer[x, y].ToString());
                 }
-                consoleString.Append("\n");
+                if (y < _height - 1)
+                {
+                    consoleString.Append("\n");
+                }
             }
 
             
             Console.SetCursorPosition(0, 0);
 
             // Draw to the console
-            Console.WriteLine(consoleString.ToString());
+            Console.Write(consoleString.ToString());
         }
 
         public void SetClearColor(int r, int g, int b)
