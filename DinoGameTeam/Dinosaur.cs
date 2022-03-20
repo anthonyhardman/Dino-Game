@@ -56,7 +56,6 @@ namespace DinoGameTeam
                     {
                         Y = Y + (velocity * dT);
                         timeSinceJump--;
-
                     }
 
                 }
