@@ -11,7 +11,8 @@ namespace DinoGameTeam
         public double X { get; set; }
         public double Y { get; set; }
         public Pixel[] Pixels { get; set; }
-        public double Velocity { get; set; }
+        public double Velocity { get; set; } = 70;
+        private double Acceleration = 10;
         private Animation flyingAnimation;
 
         public Bird()
@@ -28,6 +29,7 @@ namespace DinoGameTeam
         {
             flyingAnimation.Update(dT);
             Pixels = flyingAnimation.ActiveFrame;
+            X = X - (Velocity * dT + .5 * Acceleration * dT * dT);
         }
     }
 }
