@@ -13,10 +13,11 @@ namespace DinoGameTeam
         public Pixel[] Pixels { get; set; }
 
         private bool isJumping;
-        private bool down;
+        public bool falling;
+        private int maxHeight;
         public bool isDucking;
         private double timeSinceJump = 0;
-        private double velocity;
+        public double velocity;
         private Animation walkAnimation;
         private Animation duckAnimation;
         private double timeDucking = 0;
@@ -27,6 +28,7 @@ namespace DinoGameTeam
             // I was only using these to enusre I completed my stories - Anthony
             X = 0;
             Y = 35;
+            velocity = 20;
             Pixels = Utils.LoadPixelsFromFile("resources/dino/dino.dop", '♥', 1);
 
             walkAnimation = new Animation(0.1, '♥', "resources/dino/walking/walk1.dop",
@@ -38,36 +40,48 @@ namespace DinoGameTeam
 
         public void Update(double dT)
         {
+
             if (isJumping && isDucking == false)
             {
-                if (down==true)
+                if (falling)
                 {
-                    if (timeSinceJump == 0)
-                    { 
-                        down = false;
+                    if (Y + (velocity * dT) > 35)
+                    {
+                        falling = false;
                         isJumping = false;
+                        velocity = 20;
+                        Y = 35;
                     }
-                    else 
+                    else
                     {
-                        Y +=2;
+                        Y = Y + (velocity * dT);
                         timeSinceJump--;
+
                     }
 
                 }
-                else if(down==false)
-                { 
-                    timeSinceJump++;
-                    Y -= 2;
-                    if (timeSinceJump >= 9)
+                else if (!falling)
+                {
+                    timeSinceJump += dT;
+                    Y = Y + (-velocity * dT);
+                    if (timeSinceJump > 0.3)
                     {
-                        down=true;
+                        maxHeight = 20;
+                    }
+                    else
+                    {
+                        maxHeight = 18;
+                    }
+                    if (Y + (-velocity * dT) < maxHeight)
+                    {
+                        falling = true;
                     }
 
                 }
 
-                
+
             }
-            else if (isDucking && isJumping==false)
+            else if (isDucking)
             {
                 timeDucking += dT;
                 duckAnimation.Update(dT);
@@ -87,7 +101,10 @@ namespace DinoGameTeam
 
         public void Jump()
         {
-            isJumping = true;
+            if (!isDucking)
+            {
+                isJumping = true;
+            }
         }
 
         public void Duck()

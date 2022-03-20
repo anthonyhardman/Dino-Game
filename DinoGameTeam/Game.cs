@@ -8,8 +8,8 @@ namespace DinoGameTeam
 {
     internal class Game
     {
-        public Window window {get; set;}
-        public Dinosaur dino { get; set;}
+        public Window window { get; set; }
+        public Dinosaur dino { get; set; }
         public IDrawable[] enemies;
         private bool gameRunning;
         private bool shouldExit;
@@ -84,24 +84,28 @@ namespace DinoGameTeam
             if (Console.KeyAvailable)
             {
                 ConsoleKey key = Console.ReadKey().Key;
-                
+
                 if (key == ConsoleKey.DownArrow || key == ConsoleKey.S)
                 {
                     dino.Duck();
                 }
-                if (key == ConsoleKey.UpArrow || key == ConsoleKey.W) 
+                if (dino.falling && ConsoleKey.DownArrow == key)
+                {
+                    dino.velocity += 10;
+                }
+                if (key == ConsoleKey.UpArrow || key == ConsoleKey.W)
                 {
                     dino.Jump();
                 }
             }
-            
+
 
             // Clear the input buffer so we don't have odd animation bugs
-            while(Console.KeyAvailable)
+            while (Console.KeyAvailable)
             {
                 Console.ReadKey(true);
             }
-                
+
         }
     }
 }
