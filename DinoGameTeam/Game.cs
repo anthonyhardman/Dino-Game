@@ -54,6 +54,7 @@ namespace DinoGameTeam
 
                 if (gameRunning)
                 {
+
                     dino.Update(deltaTime);
                     // Debug delete later----------------------------------------------------------------
                     bird.Update(deltaTime);
@@ -87,6 +88,10 @@ namespace DinoGameTeam
                 if (key == ConsoleKey.DownArrow || key == ConsoleKey.S)
                 {
                     dino.Duck();
+                }
+                if (key == ConsoleKey.UpArrow || key == ConsoleKey.W) 
+                {
+                    dino.Jump();
                 }
             }
             
