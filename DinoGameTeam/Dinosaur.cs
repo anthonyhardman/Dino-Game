@@ -13,8 +13,9 @@ namespace DinoGameTeam
         public Pixel[] Pixels { get; set; }
 
         private bool isJumping;
+        private bool down;
         public bool isDucking;
-        //private double timeSinceJump;
+        private double timeSinceJump = 0;
         private double velocity;
         private Animation walkAnimation;
         private Animation duckAnimation;
@@ -37,11 +38,36 @@ namespace DinoGameTeam
 
         public void Update(double dT)
         {
-            if (isJumping)
+            if (isJumping && isDucking == false)
             {
+                if (down==true)
+                {
+                    if (timeSinceJump == 0)
+                    { 
+                        down = false;
+                        isJumping = false;
+                    }
+                    else 
+                    {
+                        Y +=2;
+                        timeSinceJump--;
+                    }
 
+                }
+                else if(down==false)
+                { 
+                    timeSinceJump++;
+                    Y -= 2;
+                    if (timeSinceJump >= 9)
+                    {
+                        down=true;
+                    }
+
+                }
+
+                
             }
-            else if (isDucking)
+            else if (isDucking && isJumping==false)
             {
                 timeDucking += dT;
                 duckAnimation.Update(dT);
@@ -61,7 +87,7 @@ namespace DinoGameTeam
 
         public void Jump()
         {
-
+            isJumping = true;
         }
 
         public void Duck()
