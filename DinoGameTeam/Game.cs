@@ -60,12 +60,14 @@ namespace DinoGameTeam
         public void Run()
         {
             Text start = new Text("Press Start", (window._width / 2), (window._height / 2) , 255, 255, 255, false); // Create a new Text() object for start screen.
-            
+
             /*window.Draw(start);     //
             Console.ReadKey(true);  //
             gameRunning = true;     //
             deltaTime = 0.0;*/
 
+            //test, Garrett can delete when placing enemies is implemented.
+            placeEnemyList.Add(enemyManager.GetEnemy());
 
             while (!shouldExit)
             {
@@ -92,8 +94,12 @@ namespace DinoGameTeam
                 {
                     //PUT ENEMY IN
                     dino.Update(deltaTime);
-                    //cactus.Update(deltaTime);
-                    bird.Update(deltaTime);
+                    foreach (IDrawable enemy in placeEnemyList)
+                    {
+                        enemy.Update(deltaTime);
+                    }
+                    /*cactus.Update(deltaTime);
+                    bird.Update(deltaTime);*/
                     ground.Update(deltaTime);
 
                     // End game if a collision occurs
@@ -119,8 +125,9 @@ namespace DinoGameTeam
                     {
                         enemy.Update(deltaTime);
                     }*/
+                    
 
-                    window.Draw(dino, cactus, bird, score, ground);
+                    window.Draw(getDrawableArray(dino, placeEnemyList, ground));
                 }
                 else if (!gameRunning)      // Show start screen and wait for key input to start game.
                 {                           //
@@ -193,6 +200,17 @@ namespace DinoGameTeam
                 Console.ReadKey(true);
             }
 
+        }
+
+        public IDrawable[] getDrawableArray(IDrawable dino, List<IDrawable> enemyList, IDrawable ground)
+        {
+            List<IDrawable> drawArray = new List<IDrawable>();
+            foreach (IDrawable enemy in enemyList)
+            {
+                drawArray.Add(enemy);
+            }
+            drawArray.Add(dino);
+            return drawArray.ToArray();
         }
     }
 }
