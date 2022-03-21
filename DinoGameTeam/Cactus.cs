@@ -24,6 +24,14 @@ namespace DinoGameTeam
             Pixels = Utils.LoadPixelsFromFile("resources/cactus/cactus1.dop", '♫', 3);
         }
 
+        public Cactus(string cactusFilePath)
+        {
+            X = 184;
+            Y = 42;
+
+            Pixels = Utils.LoadPixelsFromFile("resources/cactus/" + cactusFilePath, '♫', 3);
+        }
+
         public void Update(double dT)
         {
             X = X - (Velocity * dT + .5 * Acceleration * dT * dT);
