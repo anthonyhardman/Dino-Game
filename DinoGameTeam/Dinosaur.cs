@@ -41,7 +41,7 @@ namespace DinoGameTeam
         public void Update(double dT)
         {
 
-            if (isJumping && isDucking == false)
+            if (isJumping)
             {
                 int groundHeight = 43;
                 if (falling)
@@ -81,12 +81,12 @@ namespace DinoGameTeam
 
 
             }
-            else if (isDucking)
+            if (isDucking)
             {
                 timeDucking += dT;
                 duckAnimation.Update(dT);
                 Pixels = duckAnimation.ActiveFrame;
-                if (timeDucking > 0.4)
+                if (timeDucking > 0.1 || isJumping)
                 {
                     isDucking = false;
                     timeDucking = 0;
@@ -101,10 +101,8 @@ namespace DinoGameTeam
 
         public void Jump()
         {
-            if (!isDucking)
-            {
-                isJumping = true;
-            }
+            isJumping = true;
+            //isDucking = false;
         }
 
         public void Duck()
@@ -112,6 +110,7 @@ namespace DinoGameTeam
             if (!isJumping)
             {
                 isDucking = true;
+                timeDucking = 0;
             }
         }
     }
