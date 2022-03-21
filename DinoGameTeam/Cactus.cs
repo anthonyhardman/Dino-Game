@@ -12,7 +12,8 @@ namespace DinoGameTeam
         public double Y { get; set; }
         public Pixel[] Pixels { get; set; }
 
-        public double Velocity { get; set; }
+        public double Velocity { get; set; } = 50;
+        private double Acceleration = 10;
 
         public Cactus()
         {
@@ -25,7 +26,7 @@ namespace DinoGameTeam
 
         public void Update(double dT)
         {
-
+            X = X - (Velocity * dT + .5 * Acceleration * dT * dT);
         }
     }
 }

@@ -13,8 +13,10 @@ namespace DinoGameTeam
         public Dinosaur dino { get; set; }
         private Ground ground;
         public IDrawable[] enemies;
-        private bool gameRunning;
+        private bool gameRunning = true;
         private bool shouldExit;
+
+        private int test = 0;
 
         double deltaTime = 0.0;
         DateTime lastFrame = DateTime.Now;
@@ -49,27 +51,47 @@ namespace DinoGameTeam
                 ProcessInput();
 
                 // Debug delete later----------------------------------------------------------------
-                score.UpdateText($"Score: {random.Next()}");
+                score.UpdateText($"Score: {random.Next();
+                score.UpdateTextColor(random.Next(255), random.Next(255), random.Next(255));
+                score.UpdateBackgroundColor(random.Next(255), random.Next(255), random.Next(255));
+                gameOver.UpdateTextColor(random.Next(255), random.Next(255), random.Next(255));
+                //gameRunning = true;
                 //score.UpdateTextColor(random.Next(255), random.Next(255), random.Next(255));
                 //score.UpdateBackgroundColor(random.Next(255), random.Next(255), random.Next(255));
                 //gameOver.UpdateTextColor(random.Next(255), random.Next(255), random.Next(255));
-                gameRunning = true;
+                //gameRunning = true;
                 // ----------------------------------------------------------------------------------
 
                 if (gameRunning)
                 {
                     ground.Update();
                     dino.Update(deltaTime);
-                    // Debug delete later----------------------------------------------------------------
+                    cactus.Update(deltaTime);
                     bird.Update(deltaTime);
+
+                    //end game if a collision occurs
+                    if (CheckCollision())
+                    {
+                        gameRunning = false;
+                    }
+
+                    // Debug delete later----------------------------------------------------------------
                     // ----------------------------------------------------------------------------------
                     /*foreach (IDrawable enemy in enemies)
                     {
                         enemy.Update(deltaTime);
                     }*/
+
+                    window.Draw(dino, cactus, bird, score);
+                }
+                else
+                {
+                    //display game over screen if a collision happened
+                    Console.Clear();
+                    window.Draw(gameOver, score);
                 }
 
-                window.Draw(dino, cactus, bird, score);
+                //window.Draw(dino, cactus, bird, score);
 
                 // Debug Fps
                 Console.SetCursorPosition(50, 45);
@@ -81,7 +103,16 @@ namespace DinoGameTeam
 
         public bool CheckCollision()
         {
-            throw new NotImplementedException();
+            /*//Testing to make sure the display game over works.Can delete. 
+            test++;
+            if (test == 10)
+            {
+                return true;
+            }
+            else
+                return false;*/
+            return false;
+
         }
 
         public void Reset()
