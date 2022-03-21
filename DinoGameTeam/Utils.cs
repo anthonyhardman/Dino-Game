@@ -27,7 +27,8 @@ namespace DinoGameTeam
                     BackGroundColor = $"\u001b[48;2;{backR};{backG};{backB}m",
                     Representation = rep,
                     Depth = depth,
-                    UseConsoleBackground = useConsoleBack
+                    UseConsoleBackground = useConsoleBack,
+                    BackgroundNecessary = true
                 });
             }
 
@@ -75,7 +76,8 @@ namespace DinoGameTeam
                             BackGroundColor = $"\u001b[48;2;{backR};{backG};{backB}m",
                             Representation = pixelData[x][y],
                             Depth = depth,
-                            UseConsoleBackground = useConsoleBack
+                            UseConsoleBackground = useConsoleBack,
+                            BackgroundNecessary = true
                         });
                     }
                 }
@@ -105,7 +107,8 @@ namespace DinoGameTeam
                     BackGroundColor = $"\u001b[48;2;{backR};{backG};{backB}m",
                     Representation = text[x],
                     Depth = depth,
-                    UseConsoleBackground = useConsoleBack
+                    UseConsoleBackground = useConsoleBack,
+                    BackgroundNecessary = true
                 });
             }
 
