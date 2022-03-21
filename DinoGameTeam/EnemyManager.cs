@@ -16,11 +16,6 @@ namespace DinoGameTeam
             new Cactus("cactus3.dop"), new Bird()};
         }
 
-        public IDrawable ReceiveEnemy(IDrawable enemy)
-        {
-            throw new NotImplementedException();
-        }
-
         public IDrawable GetEnemy()
         {
             int random = new Random().Next(enemies.Count);
