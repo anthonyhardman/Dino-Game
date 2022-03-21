@@ -13,7 +13,7 @@ namespace DinoGameTeam
         public Dinosaur dino { get; set; }
         private Ground ground;
         public IDrawable[] enemies;
-        private bool gameRunning = true;
+        private bool gameRunning = false;
         private bool shouldExit;
 
         private int test = 0;
@@ -41,6 +41,8 @@ namespace DinoGameTeam
 
         public void Run()
         {
+            Text start = new Text("Press Start", (window._width / 2), (window._height / 2) , 255, 255, 255, false); // Create a new Text() object for start screen.
+
             while (!shouldExit)
             {
                 DateTime currentFrame = DateTime.Now;
@@ -84,6 +86,12 @@ namespace DinoGameTeam
 
                     window.Draw(dino, cactus, bird, score, ground);
                 }
+                else if (!gameRunning)      // Show start screen and wait for key input to start game.
+                {                           //
+                    window.Draw(start);     //
+                    Console.ReadKey(true);  //
+                    gameRunning = true;     //
+                }                           //
                 else
                 {
                     //display game over screen if a collision happened
