@@ -8,7 +8,6 @@ namespace DinoGameTeam
         private int _height;
         private ConsolePixel[,] _consoleBuffer;
         private byte[,] _depthBuffer;
-        private (int r, int g, int b) _clearColor;
         public Window(int width, int height)
         {
             _width = width;
@@ -54,6 +53,7 @@ namespace DinoGameTeam
                         }
                         cbPixel.TextColor = pixel.TextColor;
                         cbPixel.Representation = pixel.Representation;
+                        cbPixel.BackgroundNecessary = pixel.BackgroundNecessary;
                         
                         // Update the depth buffer with the pixels depth value
                         _depthBuffer[absolutePixelX, absolutePixelY] = pixel.Depth;
@@ -81,13 +81,6 @@ namespace DinoGameTeam
             Console.Write(consoleString.ToString());
         }
 
-        public void SetClearColor(int r, int g, int b)
-        {
-            _clearColor.r = r;
-            _clearColor.g = g;
-            _clearColor.b = b;
-        }
-
         private void ClearConsoleBuffer()
         {
             for (int x = 0; x < _width; ++x)
@@ -95,9 +88,8 @@ namespace DinoGameTeam
                 for (int y = 0; y < _height; ++y)
                 {
                     ConsolePixel cbPixel = _consoleBuffer[x, y];
-                    cbPixel.TextColor = "\x1b[38;2;0;0;0m";
-                    cbPixel.BackGroundColor = $"\u001b[48;2;{_clearColor.r};{_clearColor.g};{_clearColor.b}m";
                     cbPixel.Representation = ' ';
+                    cbPixel.BackgroundNecessary = false;
                 }
             }
         }

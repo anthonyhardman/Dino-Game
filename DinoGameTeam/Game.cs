@@ -34,7 +34,6 @@ namespace DinoGameTeam
         {
             dino = new Dinosaur();
             window = new Window(200, 45);
-            window.SetClearColor(0, 0, 0);
             ground = new Ground(window._width);
 
         }
@@ -52,10 +51,14 @@ namespace DinoGameTeam
                 ProcessInput();
 
                 // Debug delete later----------------------------------------------------------------
-                score.UpdateText($"Score: {random.Next()}");
+                score.UpdateText($"Score: {random.Next();
                 score.UpdateTextColor(random.Next(255), random.Next(255), random.Next(255));
                 score.UpdateBackgroundColor(random.Next(255), random.Next(255), random.Next(255));
                 gameOver.UpdateTextColor(random.Next(255), random.Next(255), random.Next(255));
+                //gameRunning = true;
+                //score.UpdateTextColor(random.Next(255), random.Next(255), random.Next(255));
+                //score.UpdateBackgroundColor(random.Next(255), random.Next(255), random.Next(255));
+                //gameOver.UpdateTextColor(random.Next(255), random.Next(255), random.Next(255));
                 //gameRunning = true;
                 // ----------------------------------------------------------------------------------
 
@@ -88,6 +91,13 @@ namespace DinoGameTeam
                     window.Draw(gameOver, score);
                 }
 
+                //window.Draw(dino, cactus, bird, score);
+
+                // Debug Fps
+                Console.SetCursorPosition(50, 45);
+                Console.Write($"{1 / deltaTime}fps");
+                Console.SetCursorPosition(0, 45);
+                // ---------
             }
         }
 
