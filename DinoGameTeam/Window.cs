@@ -4,7 +4,7 @@ namespace DinoGameTeam
 {
     public class Window
     {
-        private int _width;
+        public int _width;
         private int _height;
         private ConsolePixel[,] _consoleBuffer;
         private byte[,] _depthBuffer;

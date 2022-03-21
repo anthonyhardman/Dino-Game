@@ -8,8 +8,10 @@ namespace DinoGameTeam
 {
     internal class Game
     {
-        public Window window {get; set;}
-        public Dinosaur dino { get; set;}
+        public char[] board;
+        public Window window { get; set; }
+        public Dinosaur dino { get; set; }
+        private Ground ground;
         public IDrawable[] enemies;
         private bool gameRunning;
         private bool shouldExit;
@@ -23,6 +25,7 @@ namespace DinoGameTeam
         Text score = new Text("Score: 0123456789", 0, 0, 0, 0, 0, false, 0, 125, 33, 255);
         Text gameOver = new Text("resources/gameOver/gameover.txt", 72, 15, 255, 0, 0, true);
         Random random = new Random();
+
         // ----------------------------------------------------------------------------------
 
         public Game()
@@ -30,6 +33,7 @@ namespace DinoGameTeam
             dino = new Dinosaur();
             window = new Window(200, 45);
             window.SetClearColor(0, 0, 0);
+            ground = new Ground(window._width);
 
         }
 
@@ -41,6 +45,7 @@ namespace DinoGameTeam
                 DateTime currentFrame = DateTime.Now;
                 deltaTime = (currentFrame - lastFrame).TotalSeconds;
                 lastFrame = currentFrame;
+
 
                 ProcessInput();
 
@@ -54,6 +59,7 @@ namespace DinoGameTeam
 
                 if (gameRunning)
                 {
+                    ground.Update();
                     dino.Update(deltaTime);
                     // Debug delete later----------------------------------------------------------------
                     bird.Update(deltaTime);
@@ -83,20 +89,28 @@ namespace DinoGameTeam
             if (Console.KeyAvailable)
             {
                 ConsoleKey key = Console.ReadKey().Key;
-                
+
                 if (key == ConsoleKey.DownArrow || key == ConsoleKey.S)
                 {
                     dino.Duck();
                 }
+                if (dino.falling && ConsoleKey.DownArrow == key)
+                {
+                    dino.velocity += 10;
+                }
+                if (key == ConsoleKey.UpArrow || key == ConsoleKey.W)
+                {
+                    dino.Jump();
+                }
             }
-            
+
 
             // Clear the input buffer so we don't have odd animation bugs
-            while(Console.KeyAvailable)
+            while (Console.KeyAvailable)
             {
                 Console.ReadKey(true);
             }
-                
+
         }
     }
 }
