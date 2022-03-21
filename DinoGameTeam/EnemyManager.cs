@@ -8,12 +8,23 @@ namespace DinoGameTeam
 {
     internal class EnemyManager
     {
-        private Cactus[] cacti;
-        private Bird[] birds;
+        private List<IDrawable> enemies;
+
+        public EnemyManager()
+        {
+            enemies = new List<IDrawable>() { new Cactus("cactus1.dop"), new Cactus("cactus2.dop"), 
+            new Cactus("cactus3.dop"), new Bird()};
+        }
 
         public IDrawable GetEnemy()
         {
-            throw new NotImplementedException();
+            int random = new Random().Next(enemies.Count);
+            return enemies[random];
+        }
+
+        public void ReceiveEnemy(IDrawable enemy)
+        {
+            enemies.Add(enemy);
         }
     }
 }

@@ -19,7 +19,7 @@ namespace DinoGameTeam
         private int test = 0;
 
         double deltaTime = 0.0;
-        DateTime lastFrame = DateTime.Now;
+        DateTime lastFrame= DateTime.Now;
 
         // Debug delete later----------------------------------------------------------------
         Cactus cactus = new Cactus();
@@ -42,6 +42,12 @@ namespace DinoGameTeam
         public void Run()
         {
             Text start = new Text("Press Start", (window._width / 2), (window._height / 2) , 255, 255, 255, false); // Create a new Text() object for start screen.
+            
+            /*window.Draw(start);     //
+            Console.ReadKey(true);  //
+            gameRunning = true;     //
+            deltaTime = 0.0;*/
+
 
             while (!shouldExit)
             {
@@ -66,8 +72,9 @@ namespace DinoGameTeam
 
                 if (gameRunning)
                 {
+                    //PUT ENEMY IN
                     dino.Update(deltaTime);
-                    cactus.Update(deltaTime);
+                    //cactus.Update(deltaTime);
                     bird.Update(deltaTime);
                     ground.Update(deltaTime);
 
@@ -88,10 +95,13 @@ namespace DinoGameTeam
                 }
                 else if (!gameRunning)      // Show start screen and wait for key input to start game.
                 {                           //
-                    window.Draw(start);     //
-                    Console.ReadKey(true);  //
-                    gameRunning = true;     //
-                }                           //
+                    window.Draw(start); 
+                    if (Console.KeyAvailable)
+                    { 
+                        gameRunning = true;
+                    }
+                         
+                }
                 else
                 {
                     //display game over screen if a collision happened

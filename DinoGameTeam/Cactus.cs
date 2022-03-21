@@ -20,13 +20,13 @@ namespace DinoGameTeam
             // Feel free to change X, Y, and the 2 parameter of Utils.LoadPixels
             // I was only using these to enusre I completed my stories - Anthony
             X = 184;
-            Y = 35;
+            Y = 43;
             Pixels = Utils.LoadPixelsFromFile("resources/cactus/cactus1.dop", '♫', 3);
         }
 
         public Cactus(string cactusFilePath)
         {
-            X = 184;
+            X = 190;
             Y = 42;
 
             Pixels = Utils.LoadPixelsFromFile("resources/cactus/" + cactusFilePath, '♫', 3);
