@@ -11,6 +11,11 @@ namespace DinoGameTeam
         private Cactus[] cacti;
         private Bird[] birds;
 
+        public IDrawable ReceiveEnemy(IDrawable enemy)
+        {
+            throw new NotImplementedException();
+        }
+
         public IDrawable GetEnemy()
         {
             throw new NotImplementedException();

@@ -11,8 +11,10 @@ namespace DinoGameTeam
         public char[] board;
         public Window window { get; set; }
         public Dinosaur dino { get; set; }
+        public List<IDrawable> placeEnemyList;
+        public List<int> enemiesToRemove;
+        private EnemyManager enemyManager;
         private Ground ground;
-        public IDrawable[] enemies;
         private bool gameRunning = false;
         private bool shouldExit;
 
@@ -35,9 +37,25 @@ namespace DinoGameTeam
             dino = new Dinosaur();
             window = new Window(200, 45);
             ground = new Ground();
-
+            placeEnemyList = new List<IDrawable>();
+            enemiesToRemove = new List<int>();
+            enemyManager = new EnemyManager();
         }
 
+        public void placeEnemy(IDrawable enemy) // Receive enemies from EnemyManager queue and place them in game.
+        {
+            placeEnemyList.Add(enemy);
+            // Implement code to place enemies.
+        }
+
+        public void removeEnemiesFromList()
+        {
+            foreach (int enemy in enemiesToRemove)
+            {
+                placeEnemyList.RemoveAt(enemy);
+            }
+            enemiesToRemove.Clear();
+        }
 
         public void Run()
         {
@@ -71,11 +89,22 @@ namespace DinoGameTeam
                     bird.Update(deltaTime);
                     ground.Update(deltaTime);
 
-                    //end game if a collision occurs
+                    // End game if a collision occurs
                     if (CheckCollision())
                     {
                         gameRunning = false;
                     }
+
+                    for (int i = 0; i < placeEnemyList.Count(); i++) // For each enemy in the list...
+                    {
+                        if (placeEnemyList[i].X <= -16) // If the enemy is done...
+                        {
+                            enemyManager.ReceiveEnemy(placeEnemyList[i]); // Send enemy to list in EnemyManager
+                            enemiesToRemove.Add(i); // Add enemy to remove list
+                        }
+                    }
+                    removeEnemiesFromList();
+                    
 
                     // Debug delete later----------------------------------------------------------------
                     // ----------------------------------------------------------------------------------
@@ -86,12 +115,12 @@ namespace DinoGameTeam
 
                     window.Draw(dino, cactus, bird, score, ground);
                 }
-                else if (!gameRunning)      // Show start screen and wait for key input to start game.
-                {                           //
-                    window.Draw(start);     //
-                    Console.ReadKey(true);  //
-                    gameRunning = true;     //
-                }                           //
+                else if (!gameRunning) // Show start screen and wait for key input to start game.
+                {
+                    window.Draw(start);
+                    Console.ReadKey(true);
+                    gameRunning = true;
+                }
                 else
                 {
                     //display game over screen if a collision happened
