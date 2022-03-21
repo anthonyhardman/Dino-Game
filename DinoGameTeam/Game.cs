@@ -51,7 +51,7 @@ namespace DinoGameTeam
                 ProcessInput();
 
                 // Debug delete later----------------------------------------------------------------
-                score.UpdateText($"Score: {random.Next();
+                score.UpdateText($"Score: {random.Next()}");
                 score.UpdateTextColor(random.Next(255), random.Next(255), random.Next(255));
                 score.UpdateBackgroundColor(random.Next(255), random.Next(255), random.Next(255));
                 gameOver.UpdateTextColor(random.Next(255), random.Next(255), random.Next(255));
