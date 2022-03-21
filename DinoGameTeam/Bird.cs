@@ -17,10 +17,19 @@ namespace DinoGameTeam
 
         public Bird()
         {
-            // Feel free to change X, Y, and the 2 parameter of Utils.LoadPixels
-            // I was only using these to enusre I completed my stories - Anthony
-            X = 100;
-            Y = 17;
+            int height = new Random().Next(0,3);
+            switch (height)
+            {
+                case 0: Y = 42;
+                    break;
+                case 1: Y = 17;
+                    break;
+                case 2: Y = 30;
+                    break;
+                default: Y = 42;
+                    break;
+            }
+            X = 230;
             flyingAnimation = new Animation(0.1, '¥', "Resources/Bird/flying/birdflying1.dop",
                 "Resources/Bird/flying/birdflying2.dop");
         }
