@@ -27,7 +27,7 @@ namespace DinoGameTeam
             // Feel free to change X, Y, and the 2 parameter of Utils.LoadPixels
             // I was only using these to enusre I completed my stories - Anthony
             X = 0;
-            Y = 35;
+            Y = 42;
             velocity = 20;
             Pixels = Utils.LoadPixelsFromFile("resources/dino/dino.dop", '♥', 1);
 
@@ -43,14 +43,15 @@ namespace DinoGameTeam
 
             if (isJumping && isDucking == false)
             {
+                int groundHeight = 43;
                 if (falling)
                 {
-                    if (Y + (velocity * dT) > 35)
+                    if (Y + (velocity * dT) > groundHeight)
                     {
                         falling = false;
                         isJumping = false;
                         velocity = 20;
-                        Y = 35;
+                        Y = groundHeight;
                     }
                     else
                     {

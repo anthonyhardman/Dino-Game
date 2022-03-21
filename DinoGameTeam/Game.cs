@@ -34,7 +34,7 @@ namespace DinoGameTeam
         {
             dino = new Dinosaur();
             window = new Window(200, 45);
-            ground = new Ground(window._width);
+            ground = new Ground();
 
         }
 
@@ -64,10 +64,10 @@ namespace DinoGameTeam
 
                 if (gameRunning)
                 {
-                    ground.Update();
                     dino.Update(deltaTime);
                     cactus.Update(deltaTime);
                     bird.Update(deltaTime);
+                    ground.Update(deltaTime);
 
                     //end game if a collision occurs
                     if (CheckCollision())
@@ -82,7 +82,7 @@ namespace DinoGameTeam
                         enemy.Update(deltaTime);
                     }*/
 
-                    window.Draw(dino, cactus, bird, score);
+                    window.Draw(dino, cactus, bird, score, ground);
                 }
                 else
                 {

@@ -8,7 +8,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Resources\NewFolder\" />
+    <Compile Remove="Resources\NewFolder\**" />
+    <EmbeddedResource Remove="Resources\NewFolder\**" />
+    <None Remove="Resources\NewFolder\**" />
   </ItemGroup>
 
 </Project>
