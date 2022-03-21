@@ -17,6 +17,7 @@ namespace DinoGameTeam
         private Ground ground;
         private bool gameRunning = false;
         private bool shouldExit;
+        private DateTime beginningTime;
 
         private int test = 0;
 
@@ -101,6 +102,7 @@ namespace DinoGameTeam
                     /*cactus.Update(deltaTime);
                     bird.Update(deltaTime);*/
                     ground.Update(deltaTime);
+                    score.UpdateText($"Score: {(int)(10 * (DateTime.Now - beginningTime).TotalSeconds)}");
 
                     // End game if a collision occurs
                     if (CheckCollision())
@@ -133,7 +135,8 @@ namespace DinoGameTeam
                 {                           //
                     window.Draw(start); 
                     if (Console.KeyAvailable)
-                    { 
+                    {
+                        beginningTime = DateTime.Now;
                         gameRunning = true;
                     }
                 }
@@ -210,6 +213,7 @@ namespace DinoGameTeam
                 drawArray.Add(enemy);
             }
             drawArray.Add(dino);
+            drawArray.Add(score);
             return drawArray.ToArray();
         }
     }
