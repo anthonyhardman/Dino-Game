@@ -4,6 +4,8 @@ namespace DinoGameTeam
 {
     public class Utils
     {
+        // This function is specifically for loading pixels from my special pixel file format
+        // If you want to use that let me know and I'll send you the github repo to clone and tell you how it works
         public static Pixel[] LoadPixelsFromFile(string pixelFilePath, char rep, byte depth = 0, int backR = -1, int backG = -1, int backB = -1)
         {
             string[] pixelData = File.ReadAllLines(pixelFilePath);
@@ -32,6 +34,22 @@ namespace DinoGameTeam
             return pixels.ToArray();
         }
 
+        // This function is for loading pixels from your standard text file. Essentially you type up whatever you want to draw in a text file such as
+        /*          ########
+                   ## ######
+                   #########
+            #    ###########
+            ##  #######
+            ################
+             ##########    #
+              #########
+              ####  ##
+              ###   ##
+              ##    ##
+              ####  ####      */
+        // pass the file path to this function as well as the text color aka (frontR, frontG, and frontB) if you want to specify depth and background 
+        // colors you can but they have default values if you don't want to worry about that. If you don't provide a background color it will use the windows
+        // background color.
         public static Pixel[] LoadPixelsFromFile(string textFilePath, int frontR, int frontG, int frontB, byte depth = 0, int backR = -1, int backG = -1, int backB = -1)
         {
             string[] pixelData = File.ReadAllLines(textFilePath);
@@ -66,6 +84,8 @@ namespace DinoGameTeam
             return pixels.ToArray();
         }
 
+
+        // This function is for loading pixels from a string. You need only provide the string and text color aka (frontG, frontB, frontG) 
         public static Pixel[] LoadPixelsFromString(string text, int frontR, int frontG, int frontB, byte depth = 0, int backR = -1, int backG = -1, int backB = -1)
         {
             List<Pixel> pixels = new List<Pixel>();
@@ -92,11 +112,15 @@ namespace DinoGameTeam
             return pixels.ToArray();
         }
 
+        // If you want to change a pixels color directly this will be the easiest way to do it
+        // You need do something like this somePixel.TextColor = Utils.RGBtoTextColor(255,255,255);
         public static string RGBtoTextColor(int r, int g, int b)
         {
             return $"\x1b[38;2;{r};{g};{b}m";
         }
 
+        // If you want to change a pixels background color directly this will be the easiest way to do it
+        // You need do something like this somePixel.TextColor = Utils.RGBtoTextColor(255,255,255);
         public static string RGBtoBackgroundColor(int r, int g, int b)
         {
             return $"\u001b[48;2;{r};{g};{b}m";
