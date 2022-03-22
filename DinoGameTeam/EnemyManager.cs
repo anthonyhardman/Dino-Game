@@ -24,6 +24,7 @@ namespace DinoGameTeam
 
         public void ReceiveEnemy(IDrawable enemy)
         {
+            enemy.X = 210;
             enemies.Add(enemy);
         }
     }
