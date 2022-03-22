@@ -19,7 +19,9 @@ namespace DinoGameTeam
         public IDrawable GetEnemy()
         {
             int random = new Random().Next(enemies.Count);
-            return enemies[random];
+            IDrawable enemy = enemies[random];
+            enemies.RemoveAt(random);
+            return enemy;
         }
 
         public void ReceiveEnemy(IDrawable enemy)

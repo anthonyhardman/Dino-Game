@@ -17,7 +17,7 @@ namespace DinoGameTeam
         private DateTime beginningTime;
         private GameState state;
         private double timeSinceEnemyPlaced=0;
-        private double enemyFrequency=4;
+        private double enemyFrequency=2;
         private double deltaTime = 0.0;
         private DateTime lastFrame= DateTime.Now;
         private Text start = new Text("Press Start", (200 / 2), (45 / 2), 255, 255, 255, false); // Create a new Text() object for start screen.
@@ -142,7 +142,7 @@ namespace DinoGameTeam
                     beginningTime = DateTime.Now;
                     state = GameState.RUNNING;
                 }
-                else if (key == ConsoleKey.DownArrow || key == ConsoleKey.S)
+                else if ((key == ConsoleKey.DownArrow || key == ConsoleKey.S) && !dino.falling )
                 {
                     dino.Duck();
                 }
@@ -150,7 +150,7 @@ namespace DinoGameTeam
                 {
                     dino.velocity += 10;
                 }
-                else if (key == ConsoleKey.UpArrow || key == ConsoleKey.W)
+                else if (key == ConsoleKey.UpArrow || key == ConsoleKey.W || key == ConsoleKey.Spacebar)
                 {
                     dino.Jump();
                 }
