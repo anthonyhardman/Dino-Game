@@ -132,7 +132,6 @@ namespace DinoGameTeam
                 }
             }
             return false;
-
         }
 
         public void Reset()
@@ -197,6 +196,9 @@ namespace DinoGameTeam
                 score.Y = 21;
                 drawArray.Add(score);
                 drawArray.Add(gameOver);
+                score.X = 95;
+                score.Y = 21;
+                drawArray.Add(score);
             }
 
             return drawArray.ToArray();

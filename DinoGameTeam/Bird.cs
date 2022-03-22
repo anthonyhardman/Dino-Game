@@ -11,24 +11,13 @@ namespace DinoGameTeam
         public double X { get; set; }
         public double Y { get; set; }
         public Pixel[] Pixels { get; set; }
-        public double Velocity { get; set; } = 70;
+        public double Velocity { get; set; } = 60;
         private double Acceleration = 10;
         private Animation flyingAnimation;
 
-        public Bird()
+        public Bird(int height)
         {
-            int height = new Random().Next(0,3);
-            switch (height)
-            {
-                case 0: Y = 42;
-                    break;
-                case 1: Y = 17;
-                    break;
-                case 2: Y = 30;
-                    break;
-                default: Y = 42;
-                    break;
-            }
+            Y = height;
             X = 230;
             flyingAnimation = new Animation(0.1, '¥', "Resources/Bird/flying/birdflying1.dop",
                 "Resources/Bird/flying/birdflying2.dop");
