@@ -102,16 +102,7 @@ namespace DinoGameTeam
 
         public bool CheckCollision()
         {
-            //Testing to make sure the display game over works.Can delete. 
-            /*test++;
-            if (test == 10)
-            {
-                return true;
-            }
-            else
-                return false;*/
             return false;
-
         }
 
         public void Reset()
@@ -173,6 +164,9 @@ namespace DinoGameTeam
             else if (state == GameState.GAMEOVER)
             {
                 drawArray.Add(gameOver);
+                score.X = 95;
+                score.Y = 21;
+                drawArray.Add(score);
             }
 
             return drawArray.ToArray();
