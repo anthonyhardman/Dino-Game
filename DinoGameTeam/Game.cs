@@ -8,39 +8,81 @@ namespace DinoGameTeam
 {
     internal class Game
     {
-        public char[] board;
-        public Window window { get; set; }
-        public Dinosaur dino { get; set; }
-        public List<IDrawable> placeEnemyList;
-        public List<int> enemiesToRemove;
+        private Window window { get; set; }
+        private Dinosaur dino { get; set; }
+        private List<IDrawable> placeEnemyList;
+        private List<int> enemiesToRemove;
         private EnemyManager enemyManager;
         private Ground ground;
-        private bool gameRunning = false;
-        private bool shouldExit;
         private DateTime beginningTime;
-
-        private int test = 0;
-
-        double deltaTime = 0.0;
-        DateTime lastFrame= DateTime.Now;
-
-        // Debug delete later----------------------------------------------------------------
-        Cactus cactus = new Cactus();
-        Bird bird = new Bird();
-        Text score = new Text("Score: 0123456789", 0, 0, 0, 0, 0, false, 0, 125, 33, 255);
-        Text gameOver = new Text("resources/gameOver/gameover.txt", 72, 15, 255, 0, 0, true);
-        Random random = new Random();
-
-        // ----------------------------------------------------------------------------------
+        private GameState state;
+        private double deltaTime = 0.0;
+        private DateTime lastFrame= DateTime.Now;
+        private Text start = new Text("Press Start", (200 / 2), (45 / 2), 255, 255, 255, false); // Create a new Text() object for start screen.
+        private Text score = new Text("Score: 0123456789", 0, 0, 0, 0, 0, false, 0, 125, 33, 255);
+        private Text gameOver = new Text("resources/gameOver/gameover.txt", 72, 15, 255, 0, 0, true);
+        
 
         public Game()
         {
+            state = GameState.NOTRUNNING;
             dino = new Dinosaur();
             window = new Window(200, 45);
             ground = new Ground();
             placeEnemyList = new List<IDrawable>();
             enemiesToRemove = new List<int>();
             enemyManager = new EnemyManager();
+        }
+
+        public void Run()
+        {
+            //test, Garrett can delete when placing enemies is implemented.
+            placeEnemyList.Add(enemyManager.GetEnemy());
+
+            while (state != GameState.EXIT)
+            {
+                DateTime currentFrame = DateTime.Now;
+                deltaTime = (currentFrame - lastFrame).TotalSeconds;
+                lastFrame = currentFrame;
+
+                ProcessInput();
+
+                if (state == GameState.RUNNING)
+                {
+                    //PUT ENEMY IN
+                    dino.Update(deltaTime);
+                    foreach (IDrawable enemy in placeEnemyList)
+                    {
+                        enemy.Update(deltaTime);
+                    }
+                    ground.Update(deltaTime);
+                    score.UpdateText($"Score: {(int)(10 * (DateTime.Now - beginningTime).TotalSeconds)}");
+
+                    // End game if a collision occurs
+                    if (CheckCollision())
+                    {
+                        state = GameState.GAMEOVER;
+                    }
+
+                    for (int i = 0; i < placeEnemyList.Count(); i++) // For each enemy in the list...
+                    {
+                        if (placeEnemyList[i].X <= -16) // If the enemy is done...
+                        {
+                            enemyManager.ReceiveEnemy(placeEnemyList[i]); // Send enemy to list in EnemyManager
+                            enemiesToRemove.Add(i); // Add enemy to remove list
+                        }
+                    }
+                    removeEnemiesFromList();
+                }
+                
+                window.Draw(getDrawableArray());
+
+                // Debug Fps
+                Console.SetCursorPosition(50, 45);
+                Console.Write($"{Math.Round(1 / deltaTime, 2)}fps");
+                Console.SetCursorPosition(0, 45);
+                // ---------
+            }
         }
 
         public void placeEnemy(IDrawable enemy) // Receive enemies from EnemyManager queue and place them in game.
@@ -58,109 +100,10 @@ namespace DinoGameTeam
             enemiesToRemove.Clear();
         }
 
-        public void Run()
-        {
-            Text start = new Text("Press Start", (window._width / 2), (window._height / 2) , 255, 255, 255, false); // Create a new Text() object for start screen.
-
-            /*window.Draw(start);     //
-            Console.ReadKey(true);  //
-            gameRunning = true;     //
-            deltaTime = 0.0;*/
-
-            //test, Garrett can delete when placing enemies is implemented.
-            placeEnemyList.Add(enemyManager.GetEnemy());
-
-            while (!shouldExit)
-            {
-                DateTime currentFrame = DateTime.Now;
-                deltaTime = (currentFrame - lastFrame).TotalSeconds;
-                lastFrame = currentFrame;
-
-
-                ProcessInput();
-
-                // Debug delete later----------------------------------------------------------------
-                score.UpdateText($"Score: {random.Next()}");
-                score.UpdateTextColor(random.Next(255), random.Next(255), random.Next(255));
-                score.UpdateBackgroundColor(random.Next(255), random.Next(255), random.Next(255));
-                gameOver.UpdateTextColor(random.Next(255), random.Next(255), random.Next(255));
-                //gameRunning = true;
-                //score.UpdateTextColor(random.Next(255), random.Next(255), random.Next(255));
-                //score.UpdateBackgroundColor(random.Next(255), random.Next(255), random.Next(255));
-                //gameOver.UpdateTextColor(random.Next(255), random.Next(255), random.Next(255));
-                //gameRunning = true;
-                // ----------------------------------------------------------------------------------
-
-                if (gameRunning)
-                {
-                    //PUT ENEMY IN
-                    dino.Update(deltaTime);
-                    foreach (IDrawable enemy in placeEnemyList)
-                    {
-                        enemy.Update(deltaTime);
-                    }
-                    /*cactus.Update(deltaTime);
-                    bird.Update(deltaTime);*/
-                    ground.Update(deltaTime);
-                    score.UpdateText($"Score: {(int)(10 * (DateTime.Now - beginningTime).TotalSeconds)}");
-
-                    // End game if a collision occurs
-                    if (CheckCollision())
-                    {
-                        gameRunning = false;
-                    }
-
-                    for (int i = 0; i < placeEnemyList.Count(); i++) // For each enemy in the list...
-                    {
-                        if (placeEnemyList[i].X <= -16) // If the enemy is done...
-                        {
-                            enemyManager.ReceiveEnemy(placeEnemyList[i]); // Send enemy to list in EnemyManager
-                            enemiesToRemove.Add(i); // Add enemy to remove list
-                        }
-                    }
-                    removeEnemiesFromList();
-                    
-
-                    // Debug delete later----------------------------------------------------------------
-                    // ----------------------------------------------------------------------------------
-                    /*foreach (IDrawable enemy in enemies)
-                    {
-                        enemy.Update(deltaTime);
-                    }*/
-                    
-
-                    window.Draw(getDrawableArray(dino, placeEnemyList, ground));
-                }
-                else if (!gameRunning)      // Show start screen and wait for key input to start game.
-                {                           //
-                    window.Draw(start); 
-                    if (Console.KeyAvailable)
-                    {
-                        beginningTime = DateTime.Now;
-                        gameRunning = true;
-                    }
-                }
-                else
-                {
-                    //display game over screen if a collision happened
-                    Console.Clear();
-                    window.Draw(gameOver, score);
-                }
-
-                //window.Draw(dino, cactus, bird, score);
-
-                // Debug Fps
-                Console.SetCursorPosition(50, 45);
-                Console.Write($"{1 / deltaTime}fps");
-                Console.SetCursorPosition(0, 45);
-                // ---------
-            }
-        }
-
         public bool CheckCollision()
         {
-            /*//Testing to make sure the display game over works.Can delete. 
-            test++;
+            //Testing to make sure the display game over works.Can delete. 
+            /*test++;
             if (test == 10)
             {
                 return true;
@@ -182,20 +125,24 @@ namespace DinoGameTeam
             {
                 ConsoleKey key = Console.ReadKey().Key;
 
-                if (key == ConsoleKey.DownArrow || key == ConsoleKey.S)
+                if (state == GameState.NOTRUNNING)
+                {
+                    beginningTime = DateTime.Now;
+                    state = GameState.RUNNING;
+                }
+                else if (key == ConsoleKey.DownArrow || key == ConsoleKey.S)
                 {
                     dino.Duck();
                 }
-                if (dino.falling && ConsoleKey.DownArrow == key)
+                else if (dino.falling && (ConsoleKey.DownArrow == key || ConsoleKey.S == key))
                 {
                     dino.velocity += 10;
                 }
-                if (key == ConsoleKey.UpArrow || key == ConsoleKey.W)
+                else if (key == ConsoleKey.UpArrow || key == ConsoleKey.W)
                 {
                     dino.Jump();
                 }
             }
-
 
             // Clear the input buffer so we don't have odd animation bugs
             while (Console.KeyAvailable)
@@ -205,15 +152,29 @@ namespace DinoGameTeam
 
         }
 
-        public IDrawable[] getDrawableArray(IDrawable dino, List<IDrawable> enemyList, IDrawable ground)
+        public IDrawable[] getDrawableArray()
         {
             List<IDrawable> drawArray = new List<IDrawable>();
-            foreach (IDrawable enemy in enemyList)
+
+            if (state == GameState.NOTRUNNING)
             {
-                drawArray.Add(enemy);
+                drawArray.Add(start);
             }
-            drawArray.Add(dino);
-            drawArray.Add(score);
+            else if (state == GameState.RUNNING)
+            {
+                foreach (IDrawable enemy in placeEnemyList)
+                {
+                    drawArray.Add(enemy);
+                }
+                drawArray.Add(dino);
+                drawArray.Add(score);
+                drawArray.Add(ground);
+            }
+            else if (state == GameState.GAMEOVER)
+            {
+                drawArray.Add(gameOver);
+            }
+
             return drawArray.ToArray();
         }
     }
