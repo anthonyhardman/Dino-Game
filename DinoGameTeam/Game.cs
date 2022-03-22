@@ -47,10 +47,10 @@ namespace DinoGameTeam
                 lastFrame = currentFrame;
 
                 ProcessInput();
-                placeEnemy();
 
                 if (state == GameState.RUNNING)
                 {
+                    placeEnemy();
                     //PUT ENEMY IN
                     dino.Update(deltaTime);
                     foreach (IDrawable enemy in enemiesOnScreen)
@@ -114,6 +114,23 @@ namespace DinoGameTeam
 
         public bool CheckCollision()
         {
+            foreach (IDrawable enemy in enemiesOnScreen) 
+            {
+                if (enemy.X < 40)
+                {
+                    //iterate over dino's pixels
+                    for (int i = 0; i < dino.Pixels.Length; i++) 
+                    {
+                        for (int j = 0; j < enemy.Pixels.Length; j++)
+                        {
+                            if ((dino.Pixels[i].X + (int)dino.X) == (enemy.Pixels[j].X + (int)enemy.X) && (dino.Pixels[i].Y + (int)dino.Y) == (enemy.Pixels[j].Y + (int)enemy.Y))
+                            {
+                                return true;
+                            }
+                        }
+                    }
+                }
+            }
             return false;
         }
 
@@ -175,6 +192,9 @@ namespace DinoGameTeam
             }
             else if (state == GameState.GAMEOVER)
             {
+                score.X = 95;
+                score.Y = 21;
+                drawArray.Add(score);
                 drawArray.Add(gameOver);
                 score.X = 95;
                 score.Y = 21;
