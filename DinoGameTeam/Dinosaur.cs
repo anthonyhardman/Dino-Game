@@ -86,7 +86,7 @@ namespace DinoGameTeam
                 timeDucking += dT;
                 duckAnimation.Update(dT);
                 Pixels = duckAnimation.ActiveFrame;
-                if (timeDucking > 0.1 || isJumping)
+                if (timeDucking > 0.5 || isJumping)
                 {
                     isDucking = false;
                     timeDucking = 0;
