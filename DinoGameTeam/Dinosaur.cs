@@ -28,7 +28,7 @@ namespace DinoGameTeam
             // I was only using these to enusre I completed my stories - Anthony
             X = 0;
             Y = 42;
-            velocity = 40;
+            velocity = 30;
             Pixels = Utils.LoadPixelsFromFile("resources/dino/dino.dop", '♥', 1);
 
             walkAnimation = new Animation(0.1, '♥', "resources/dino/walking/walk1.dop",
@@ -50,7 +50,7 @@ namespace DinoGameTeam
                     {
                         falling = false;
                         isJumping = false;
-                        velocity = 40;
+                        velocity = 30;
                         Y = groundHeight;
                     }
                     else
