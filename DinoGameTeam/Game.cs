@@ -16,6 +16,8 @@ namespace DinoGameTeam
         private Ground ground;
         private DateTime beginningTime;
         private GameState state;
+        private double timeSinceEnemyPlaced=0;
+        private double enemyFrequency=2;
         private double deltaTime = 0.0;
         private DateTime lastFrame= DateTime.Now;
         private Text start = new Text("Press Start", (200 / 2), (45 / 2), 255, 255, 255, false); // Create a new Text() object for start screen.
@@ -37,7 +39,6 @@ namespace DinoGameTeam
         public void Run()
         {
             //test, Garrett can delete when placing enemies is implemented.
-            placeEnemyList.Add(enemyManager.GetEnemy());
 
             while (state != GameState.EXIT)
             {
@@ -46,6 +47,7 @@ namespace DinoGameTeam
                 lastFrame = currentFrame;
 
                 ProcessInput();
+                placeEnemy();
 
                 if (state == GameState.RUNNING)
                 {
@@ -85,10 +87,20 @@ namespace DinoGameTeam
             }
         }
 
-        public void placeEnemy(IDrawable enemy) // Receive enemies from EnemyManager queue and place them in game.
+        public void placeEnemy() // Receive enemies from EnemyManager queue and place them in game.
         {
-            placeEnemyList.Add(enemy);
-            // Implement code to place enemies.
+
+            if (timeSinceEnemyPlaced >= enemyFrequency)
+            {
+                placeEnemyList.Add(enemyManager.GetEnemy());
+                timeSinceEnemyPlaced = 0;
+            }
+            else
+            {
+                timeSinceEnemyPlaced += deltaTime;
+            }
+            
+
         }
 
         public void removeEnemiesFromList()
@@ -121,7 +133,7 @@ namespace DinoGameTeam
                     beginningTime = DateTime.Now;
                     state = GameState.RUNNING;
                 }
-                else if (key == ConsoleKey.DownArrow || key == ConsoleKey.S)
+                else if ((key == ConsoleKey.DownArrow || key == ConsoleKey.S) && !dino.falling )
                 {
                     dino.Duck();
                 }
@@ -129,7 +141,7 @@ namespace DinoGameTeam
                 {
                     dino.velocity += 10;
                 }
-                else if (key == ConsoleKey.UpArrow || key == ConsoleKey.W)
+                else if (key == ConsoleKey.UpArrow || key == ConsoleKey.W || key == ConsoleKey.Spacebar)
                 {
                     dino.Jump();
                 }
