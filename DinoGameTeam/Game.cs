@@ -10,7 +10,7 @@ namespace DinoGameTeam
     {
         private Window window { get; set; }
         private Dinosaur dino { get; set; }
-        private List<IDrawable> placeEnemyList;
+        private List<IDrawable> enemiesOnScreen;
         private List<int> enemiesToRemove;
         private EnemyManager enemyManager;
         private Ground ground;
@@ -31,7 +31,7 @@ namespace DinoGameTeam
             dino = new Dinosaur();
             window = new Window(200, 45);
             ground = new Ground();
-            placeEnemyList = new List<IDrawable>();
+            enemiesOnScreen = new List<IDrawable>();
             enemiesToRemove = new List<int>();
             enemyManager = new EnemyManager();
         }
@@ -53,7 +53,7 @@ namespace DinoGameTeam
                 {
                     //PUT ENEMY IN
                     dino.Update(deltaTime);
-                    foreach (IDrawable enemy in placeEnemyList)
+                    foreach (IDrawable enemy in enemiesOnScreen)
                     {
                         enemy.Update(deltaTime);
                     }
@@ -66,11 +66,11 @@ namespace DinoGameTeam
                         state = GameState.GAMEOVER;
                     }
 
-                    for (int i = 0; i < placeEnemyList.Count(); i++) // For each enemy in the list...
+                    for (int i = 0; i < enemiesOnScreen.Count(); i++) // For each enemy in the list...
                     {
-                        if (placeEnemyList[i].X <= -16) // If the enemy is done...
+                        if (enemiesOnScreen[i].X <= -16) // If the enemy is done...
                         {
-                            enemyManager.ReceiveEnemy(placeEnemyList[i]); // Send enemy to list in EnemyManager
+                            enemyManager.ReceiveEnemy(enemiesOnScreen[i]); // Send enemy to list in EnemyManager
                             enemiesToRemove.Add(i); // Add enemy to remove list
                         }
                     }
@@ -92,7 +92,7 @@ namespace DinoGameTeam
 
             if (timeSinceEnemyPlaced >= enemyFrequency)
             {
-                placeEnemyList.Add(enemyManager.GetEnemy());
+                enemiesOnScreen.Add(enemyManager.GetEnemy());
                 timeSinceEnemyPlaced = 0;
             }
             else
@@ -107,7 +107,7 @@ namespace DinoGameTeam
         {
             foreach (int enemy in enemiesToRemove)
             {
-                placeEnemyList.RemoveAt(enemy);
+                enemiesOnScreen.RemoveAt(enemy);
             }
             enemiesToRemove.Clear();
         }
@@ -165,7 +165,7 @@ namespace DinoGameTeam
             }
             else if (state == GameState.RUNNING)
             {
-                foreach (IDrawable enemy in placeEnemyList)
+                foreach (IDrawable enemy in enemiesOnScreen)
                 {
                     drawArray.Add(enemy);
                 }
