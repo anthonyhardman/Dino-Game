@@ -27,7 +27,7 @@ namespace DinoGameTeam
             // Feel free to change X, Y, and the 2 parameter of Utils.LoadPixels
             // I was only using these to enusre I completed my stories - Anthony
             X = 0;
-            Y = 42;
+            Y = 43;
             velocity = 30;
             Pixels = Utils.LoadPixelsFromFile("resources/dino/dino.dop", '♥', 1);
 
