@@ -18,7 +18,7 @@ namespace DinoGameTeam
         public Cactus(string cactusFilePath)
         {
             X = 190;
-            Y = 42;
+            Y = 43;
 
             Pixels = Utils.LoadPixelsFromFile("resources/cactus/" + cactusFilePath, '♫', 3);
         }
