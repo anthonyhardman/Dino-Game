@@ -162,14 +162,13 @@ namespace DinoGameTeam
                 {
                     dino.Jump();
                 }
-            }
 
-            // Clear the input buffer so we don't have odd animation bugs
-            while (Console.KeyAvailable)
-            {
-                Console.ReadKey(true);
+                // Clear the input buffer so we don't have odd animation bugs
+                while (Console.KeyAvailable)
+                {
+                    Console.ReadKey(true);
+                }
             }
-
         }
 
         public IDrawable[] getDrawableArray()
