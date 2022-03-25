@@ -20,11 +20,12 @@ namespace DinoGameTeam
         private double enemyFrequency=2;
         private double deltaTime = 0.0;
         private DateTime lastFrame= DateTime.Now;
-        private Text start = new Text("Press Start", (200 / 2), (45 / 2), 255, 255, 255, false); // Create a new Text() object for start screen.
+        private Text start = new Text("Press Any Key To Start", (200 / 2), (45 / 2), 255, 255, 255, false); // Create a new Text() object for start screen.
         private Text score = new Text("Score: 0123456789", 0, 0, 0, 0, 0, false, 0, 125, 33, 255);
         private Text gameOver = new Text("resources/gameOver/gameover.txt", 72, 15, 255, 0, 0, true);
         
 
+        //constructor
         public Game()
         {
             state = GameState.NOTRUNNING;
@@ -36,29 +37,36 @@ namespace DinoGameTeam
             enemyManager = new EnemyManager();
         }
 
+        //Runs the game
         public void Run()
         {
-            //test, Garrett can delete when placing enemies is implemented.
-
             while (state != GameState.EXIT)
             {
                 DateTime currentFrame = DateTime.Now;
                 deltaTime = (currentFrame - lastFrame).TotalSeconds;
                 lastFrame = currentFrame;
 
+                //check user input (jump, duck, etc)
                 ProcessInput();
 
+                //playing game
                 if (state == GameState.RUNNING)
                 {
+                    //places enemy
                     placeEnemy();
-                    //PUT ENEMY IN
+                    //moes dino
                     dino.Update(deltaTime);
+                    //moves all enemies
                     foreach (IDrawable enemy in enemiesOnScreen)
                     {
                         enemy.Update(deltaTime);
                     }
+                    //moves ground
                     ground.Update(deltaTime);
+
+                    //update score value
                     score.UpdateText($"Score: {(int)(10 * (DateTime.Now - beginningTime).TotalSeconds)}");
+                    //update score color every 500
 
                     // End game if a collision occurs
                     if (CheckCollision())
@@ -77,6 +85,7 @@ namespace DinoGameTeam
                     removeEnemiesFromList();
                 }
                 
+                //draws game screen
                 window.Draw(getDrawableArray());
 
                 // Debug Fps
@@ -145,19 +154,23 @@ namespace DinoGameTeam
             {
                 ConsoleKey key = Console.ReadKey().Key;
 
+                //start game
                 if (state == GameState.NOTRUNNING)
                 {
                     beginningTime = DateTime.Now;
                     state = GameState.RUNNING;
                 }
+                //duck
                 else if ((key == ConsoleKey.DownArrow || key == ConsoleKey.S) && !dino.falling )
                 {
                     dino.Duck();
                 }
+                //fall faster
                 else if (dino.falling && (ConsoleKey.DownArrow == key || ConsoleKey.S == key))
                 {
                     dino.velocity += 10;
                 }
+                //jump
                 else if (key == ConsoleKey.UpArrow || key == ConsoleKey.W || key == ConsoleKey.Spacebar)
                 {
                     dino.Jump();
@@ -175,12 +188,15 @@ namespace DinoGameTeam
         {
             List<IDrawable> drawArray = new List<IDrawable>();
 
+            //display start screen
             if (state == GameState.NOTRUNNING)
             {
                 drawArray.Add(start);
             }
+            //display game
             else if (state == GameState.RUNNING)
             {
+                //draws enemies
                 foreach (IDrawable enemy in enemiesOnScreen)
                 {
                     drawArray.Add(enemy);
@@ -189,6 +205,7 @@ namespace DinoGameTeam
                 drawArray.Add(score);
                 drawArray.Add(ground);
             }
+            //display game over
             else if (state == GameState.GAMEOVER)
             {
                 score.X = 95;
@@ -197,6 +214,7 @@ namespace DinoGameTeam
                 drawArray.Add(gameOver);
             }
 
+            //returns an array to be passed into window.Draw()
             return drawArray.ToArray();
         }
     }

@@ -24,8 +24,6 @@ namespace DinoGameTeam
 
         public Dinosaur()
         {
-            // Feel free to change X, Y, and the 2 parameter of Utils.LoadPixels
-            // I was only using these to enusre I completed my stories - Anthony
             X = 0;
             Y = 42;
             velocity = 30;

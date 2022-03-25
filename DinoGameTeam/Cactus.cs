@@ -20,11 +20,13 @@ namespace DinoGameTeam
             X = 190;
             Y = 42;
 
+            //get cactus .dop file image
             Pixels = Utils.LoadPixelsFromFile("resources/cactus/" + cactusFilePath, '♫', 3);
         }
 
         public void Update(double dT)
         {
+            //move cactus (kinematic equation)
             X = X - (Velocity * dT + .5 * Acceleration * dT * dT);
         }
     }
