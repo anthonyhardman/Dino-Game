@@ -16,7 +16,7 @@ namespace DinoGameTeam
         private (int r, int g, int b) _backgroundColor;
         private byte _depth;
 
-        public Text(string textOrFile, int x, int y, int frontR, int frontG, int frontB, bool file = false, byte depth = 0, int backR = -1, int backG = -1, int backB = -1)
+        public Text(string textOrFile, double x, double y, int frontR, int frontG, int frontB, bool file = false, byte depth = 0, int backR = -1, int backG = -1, int backB = -1)
         {
             _color = (frontR, frontG, frontB);
             _backgroundColor = (backR, backG, backB);

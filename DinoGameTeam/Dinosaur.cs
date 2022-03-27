@@ -60,6 +60,9 @@ namespace DinoGameTeam
                 }
                 else if (!falling)
                 {
+                    // this was early attempts to implement the max jump height
+                    // doesn't work because is based on time since jump which i used for the dino to come back down
+                    // need to based maxheight on something other then time since jumped.
                     timeSinceJump += dT;
                     Y = Y + (-velocity * dT);
                     if (timeSinceJump > 0.3)

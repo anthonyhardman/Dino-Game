@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 
 namespace DinoGameTeam
 {
@@ -20,7 +16,7 @@ namespace DinoGameTeam
         private double enemyFrequency=2;
         private double deltaTime = 0.0;
         private DateTime lastFrame= DateTime.Now;
-        private Text start = new Text("Press Any Key To Start", (200 / 2), (45 / 2), 255, 255, 255, false); // Create a new Text() object for start screen.
+        private Text start;
         private Text score = new Text("Score: 0123456789", 0, 0, 0, 0, 0, false, 0, 125, 33, 255);
         private Text gameOver = new Text("resources/gameOver/gameover.txt", 72, 15, 255, 0, 0, true);
         
@@ -31,6 +27,7 @@ namespace DinoGameTeam
             state = GameState.NOTRUNNING;
             dino = new Dinosaur();
             window = new Window(200, 45);
+            start = new Text("resources/Instructions/Instructions.txt", window._width/2.75, window._height/2.5, 255, 100, 255, true); // Creates a new Text() object for start screen.
             ground = new Ground();
             enemiesOnScreen = new List<IDrawable>();
             enemiesToRemove = new List<int>();
