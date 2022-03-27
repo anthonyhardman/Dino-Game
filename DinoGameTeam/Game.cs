@@ -2,7 +2,7 @@
 
 namespace DinoGameTeam
 {
-    internal class Game
+    public class Game
     {
         private Window window { get; set; }
         private Dinosaur dino { get; set; }
@@ -124,21 +124,31 @@ namespace DinoGameTeam
             {
                 if (enemy.X < 40)
                 {
-                    //iterate over dino's pixels
-                    for (int i = 0; i < dino.Pixels.Length; i++) 
+                    if (CheckCollision(dino, enemy))
                     {
-                        for (int j = 0; j < enemy.Pixels.Length; j++)
-                        {
-                            if ((dino.Pixels[i].X + (int)dino.X) == (enemy.Pixels[j].X + (int)enemy.X) && (dino.Pixels[i].Y + (int)dino.Y) == (enemy.Pixels[j].Y + (int)enemy.Y))
-                            {
-                                return true;
-                            }
-                        }
+                        return true;
                     }
                 }
             }
             return false;
         }
+
+        public static bool CheckCollision(IDrawable dino, IDrawable enemy)
+        {
+            foreach (Pixel dPixel in dino.Pixels)
+            {
+                foreach(Pixel ePixel in enemy.Pixels)
+                {
+                    if (dPixel.X + (int)dino.X == ePixel.X + (int)enemy.X && dPixel.Y + (int)dino.Y == ePixel.Y + (int)enemy.Y)
+                    {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
+        }
+
 
         public void Reset()
         {

@@ -78,14 +78,36 @@ Link to a feature: [Calculator](DinoGameSpecFlow/Features/Calculator.feature)
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Add two numbers")]
+        [NUnit.Framework.DescriptionAttribute("Collison Checks")]
         [NUnit.Framework.CategoryAttribute("mytag")]
-        public virtual void AddTwoNumbers()
+        [NUnit.Framework.TestCaseAttribute("0", "0", "large cactus", "0", "0", "true", null)]
+        [NUnit.Framework.TestCaseAttribute("0", "0", "medium cactus", "0", "0", "true", null)]
+        [NUnit.Framework.TestCaseAttribute("0", "0", "small cactus", "0", "0", "true", null)]
+        [NUnit.Framework.TestCaseAttribute("0", "0", "cactus mixed cluster type 1", "0", "0", "true", null)]
+        [NUnit.Framework.TestCaseAttribute("0", "0", "cactus mixed cluster type 2", "0", "0", "true", null)]
+        [NUnit.Framework.TestCaseAttribute("0", "0", "cactus mixed cluster type 3", "0", "0", "true", null)]
+        [NUnit.Framework.TestCaseAttribute("0", "0", "cactus cluster high 2 wide", "0", "0", "true", null)]
+        [NUnit.Framework.TestCaseAttribute("0", "0", "cactus cluster medium 2 wide", "0", "0", "true", null)]
+        [NUnit.Framework.TestCaseAttribute("0", "0", "cactus cluster small 2 wide", "0", "0", "true", null)]
+        [NUnit.Framework.TestCaseAttribute("0", "0", "cactus cluster medium 3 wide", "0", "0", "true", null)]
+        [NUnit.Framework.TestCaseAttribute("0", "0", "cactus cluster small 3 wide", "0", "0", "true", null)]
+        public virtual void CollisonChecks(string dinoX, string dinoY, string enemyType, string enemyX, string enemyY, string detected, string[] exampleTags)
         {
-            string[] tagsOfScenario = new string[] {
+            string[] @__tags = new string[] {
                     "mytag"};
+            if ((exampleTags != null))
+            {
+                @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
+            }
+            string[] tagsOfScenario = @__tags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add two numbers", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            argumentsOfScenario.Add("dinoX", dinoX);
+            argumentsOfScenario.Add("dinoY", dinoY);
+            argumentsOfScenario.Add("enemyType", enemyType);
+            argumentsOfScenario.Add("enemyX", enemyX);
+            argumentsOfScenario.Add("enemyY", enemyY);
+            argumentsOfScenario.Add("detected", detected);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Collison Checks", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 9
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -107,16 +129,16 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 10
- testRunner.Given("the first number is 50", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given(string.Format("a dino with position ({0}, {1})", dinoX, dinoY), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 11
- testRunner.And("the second number is 70", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And(string.Format("an {0} with position ({1}, {2})", enemyType, enemyX, enemyY), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 12
- testRunner.When("the two numbers are added", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("collision is checked", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 13
- testRunner.Then("the result should be 120", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then(string.Format("collision detected is {0}", detected), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
