@@ -10,6 +10,7 @@ namespace DinoGameTeam
     {
         public double X { get; set; }
         public double Y { get; set; }
+        public double Velocity { get; set; }    //not used
         public Pixel[] Pixels { get; set; }
 
         private (int r, int g, int b) _color;

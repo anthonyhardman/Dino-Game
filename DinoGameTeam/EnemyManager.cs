@@ -9,13 +9,18 @@ namespace DinoGameTeam
     internal class EnemyManager
     {
         private List<IDrawable> enemies;
-        //private double birdVelocity
-        //private double cactiVelocity
-        //private double maxBirdVelocity
-        //private double maxCactiVelocity
+        private double enemyVelocity;
+        private double maxVelocity;
+        private double acceleration;
+        int scoreBound;
 
         public EnemyManager()
         {
+            enemyVelocity = 80;
+            maxVelocity = 245;
+            acceleration = 15;
+            scoreBound = 100;
+
             //load one of each enemy
             enemies = new List<IDrawable>() { new Cactus("cactusH.dop"), new Cactus("cactusM.dop"), 
             new Cactus("cactusS.dop"), new Cactus("cactusCluster1.dop"), new Cactus("cactusCluster2.dop"),
@@ -32,6 +37,7 @@ namespace DinoGameTeam
             //updates position back to start
             enemy.X = 210;
             //update enemy velocity based off passed in velocity value 
+            enemy.Velocity = enemyVelocity;
             enemies.RemoveAt(random);
             return enemy;
         }
@@ -42,8 +48,23 @@ namespace DinoGameTeam
             enemies.Add(enemy);
         }
 
-        //public void Update(int score)
-        //if not max velocities
-        //sets new velocities based on score
+
+        public void Update(int score)
+        {
+            //set bounds for when the velocity increases
+
+            //increases velocity if next score section is met
+            if (score >= scoreBound)
+            {
+                //increase only if not max velocity
+                if (enemyVelocity != maxVelocity)
+                {
+                    enemyVelocity += acceleration;
+                }
+                //set next increment section
+                scoreBound += 100;
+            }
+
+        }
     }
 }
