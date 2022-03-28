@@ -171,14 +171,14 @@ namespace DinoGameTeam
                     state = GameState.RUNNING;
                 }
                 //duck
-                else if ((key == ConsoleKey.DownArrow || key == ConsoleKey.S) && !dino.falling )
+                else if ((key == ConsoleKey.DownArrow || key == ConsoleKey.S) && !dino.isJumping )
                 {
                     dino.Duck();
                 }
                 //fall faster
-                else if (dino.falling && (ConsoleKey.DownArrow == key || ConsoleKey.S == key))
+                else if (dino.isJumping && (ConsoleKey.DownArrow == key || ConsoleKey.S == key))
                 {
-                    dino.Velocity += 10;
+                    dino.Velocity += 75;
                 }
                 //jump
                 else if (key == ConsoleKey.UpArrow || key == ConsoleKey.W || key == ConsoleKey.Spacebar)
