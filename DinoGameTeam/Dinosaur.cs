@@ -10,6 +10,7 @@ namespace DinoGameTeam
     {
         public double X { get; set; }
         public double Y { get; set; }
+        public double Velocity { get; set; }
         public Pixel[] Pixels { get; set; }
 
         private bool isJumping;
@@ -17,7 +18,7 @@ namespace DinoGameTeam
         private int maxHeight;
         public bool isDucking;
         private double timeSinceJump = 0;
-        public double velocity;
+        //public double Velocity; 
         private Animation walkAnimation;
         private Animation duckAnimation;
         private double timeDucking = 0;
@@ -26,7 +27,7 @@ namespace DinoGameTeam
         {
             X = 0;
             Y = 43;
-            velocity = 30;
+            Velocity = 30;
             Pixels = Utils.LoadPixelsFromFile("resources/dino/dino.dop", '♥', 1);
 
             walkAnimation = new Animation(0.1, '♥', "resources/dino/walking/walk1.dop",
@@ -44,16 +45,16 @@ namespace DinoGameTeam
                 int groundHeight = 43;
                 if (falling)
                 {
-                    if (Y + (velocity * dT) > groundHeight)
+                    if (Y + (Velocity * dT) > groundHeight)
                     {
                         falling = false;
                         isJumping = false;
-                        velocity = 30;
+                        Velocity = 30;
                         Y = groundHeight;
                     }
                     else
                     {
-                        Y = Y + (velocity * dT);
+                        Y = Y + (Velocity * dT);
                         timeSinceJump--;
                     }
 
@@ -64,7 +65,7 @@ namespace DinoGameTeam
                     // doesn't work because is based on time since jump which i used for the dino to come back down
                     // need to based maxheight on something other then time since jumped.
                     timeSinceJump += dT;
-                    Y = Y + (-velocity * dT);
+                    Y = Y + (-Velocity * dT);
                     if (timeSinceJump > 0.3)
                     {
                         maxHeight = 20;
@@ -73,7 +74,7 @@ namespace DinoGameTeam
                     {
                         maxHeight = 18;
                     }
-                    if (Y + (-velocity * dT) < maxHeight)
+                    if (Y + (-Velocity * dT) < maxHeight)
                     {
                         falling = true;
                     }

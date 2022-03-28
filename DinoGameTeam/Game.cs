@@ -12,13 +12,14 @@ namespace DinoGameTeam
         private Ground ground;
         private DateTime beginningTime;
         private GameState state;
-        private double timeSinceEnemyPlaced=0;
-        private double enemyFrequency=2;
+        private double timeSinceEnemyPlaced = 0;
+        private double enemyFrequency = 2;
         private double deltaTime = 0.0;
         private DateTime lastFrame= DateTime.Now;
         private Text start;
-        private Text score = new Text("Score: 0123456789", 0, 0, 0, 0, 0, false, 0, 125, 33, 255);
+        private Text scoreText = new Text("Score: 0123456789", 0, 0, 0, 0, 0, false, 0, 125, 33, 255);
         private Text gameOver = new Text("resources/gameOver/gameover.txt", 72, 15, 255, 0, 0, true);
+        private int score;
         
 
         //constructor
@@ -60,10 +61,12 @@ namespace DinoGameTeam
                     }
                     //moves ground
                     ground.Update(deltaTime);
-
-                    //update score value
-                    score.UpdateText($"Score: {(int)(10 * (DateTime.Now - beginningTime).TotalSeconds)}");
+                    score = (int)(10 * (DateTime.Now - beginningTime).TotalSeconds);
+                    //update scoreText value
+                    scoreText.UpdateText($"Score: {score}");
                     //update score color every 500
+
+                    enemyManager.Update(score);
 
                     // End game if a collision occurs
                     if (CheckCollision())
@@ -175,7 +178,7 @@ namespace DinoGameTeam
                 //fall faster
                 else if (dino.falling && (ConsoleKey.DownArrow == key || ConsoleKey.S == key))
                 {
-                    dino.velocity += 10;
+                    dino.Velocity += 10;
                 }
                 //jump
                 else if (key == ConsoleKey.UpArrow || key == ConsoleKey.W || key == ConsoleKey.Spacebar)
@@ -209,15 +212,15 @@ namespace DinoGameTeam
                     drawArray.Add(enemy);
                 }
                 drawArray.Add(dino);
-                drawArray.Add(score);
+                drawArray.Add(scoreText);
                 drawArray.Add(ground);
             }
             //display game over
             else if (state == GameState.GAMEOVER)
             {
-                score.X = 95;
-                score.Y = 21;
-                drawArray.Add(score);
+                scoreText.X = 95;
+                scoreText.Y = 21;
+                drawArray.Add(scoreText);
                 drawArray.Add(gameOver);
             }
 

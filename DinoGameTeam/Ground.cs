@@ -18,6 +18,7 @@ namespace DinoGameTeam
 
         public double X { get; set; }
         public double Y { get; set; }
+        public double Velocity { get; set; }
         public Pixel[] Pixels { get; set; }
 
         

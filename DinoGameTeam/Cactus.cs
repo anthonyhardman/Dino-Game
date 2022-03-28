@@ -12,8 +12,7 @@ namespace DinoGameTeam
         public double Y { get; set; }
         public Pixel[] Pixels { get; set; }
 
-        public double Velocity { get; set; } = 50;
-        private double Acceleration = 10;
+        public double Velocity { get; set; }
 
         public Cactus(string cactusFilePath)
         {
@@ -27,7 +26,7 @@ namespace DinoGameTeam
         public void Update(double dT)
         {
             //move cactus (kinematic equation)
-            X = X - (Velocity * dT + .5 * Acceleration * dT * dT);
+            X = X - (Velocity * dT);
         }
     }
 }
