@@ -13,7 +13,7 @@ namespace DinoGameTeam
         public double Velocity { get; set; }
         public Pixel[] Pixels { get; set; }
 
-        private bool isJumping;
+        public bool isJumping;
         public bool falling;
         private int maxHeight;
         public bool isDucking;
@@ -23,10 +23,14 @@ namespace DinoGameTeam
         private Animation duckAnimation;
         private double timeDucking = 0;
 
+        private double acceleration = 200;
+        private double worldZero = 43;
+        private double boostedVelocity = 0;
+
         public Dinosaur()
         {
             X = 0;
-            Y = 43;
+            Y = worldZero;
             Velocity = 30;
             Pixels = Utils.LoadPixelsFromFile("resources/dino/dino.dop", '♥', 1);
 
@@ -42,46 +46,14 @@ namespace DinoGameTeam
 
             if (isJumping)
             {
-                int groundHeight = 43;
-                if (falling)
+                Y += (0.25 * acceleration * dT * dT) + (Velocity * dT);
+                if (Y >= worldZero)
                 {
-                    if (Y + (Velocity * dT) > groundHeight)
-                    {
-                        falling = false;
-                        isJumping = false;
-                        Velocity = 30;
-                        Y = groundHeight;
-                    }
-                    else
-                    {
-                        Y = Y + (Velocity * dT);
-                        timeSinceJump--;
-                    }
-
+                    Y = worldZero;
+                    isJumping = false;
+                    boostedVelocity = 0;
                 }
-                else if (!falling)
-                {
-                    // this was early attempts to implement the max jump height
-                    // doesn't work because is based on time since jump which i used for the dino to come back down
-                    // need to based maxheight on something other then time since jumped.
-                    timeSinceJump += dT;
-                    Y = Y + (-Velocity * dT);
-                    if (timeSinceJump > 0.3)
-                    {
-                        maxHeight = 20;
-                    }
-                    else
-                    {
-                        maxHeight = 18;
-                    }
-                    if (Y + (-Velocity * dT) < maxHeight)
-                    {
-                        falling = true;
-                    }
-
-                }
-
-
+                Velocity += acceleration * dT;
             }
             if (isDucking)
             {
@@ -103,8 +75,21 @@ namespace DinoGameTeam
 
         public void Jump()
         {
+            if (!isJumping)
+            {
+                Velocity = -90.0;
+            }
+            else if (boostedVelocity >= -40.0)
+            {
+                Velocity -= 8.0;
+                boostedVelocity -= 8.0;
+
+                if (boostedVelocity <= 40.0)
+                {
+                    int x = 0;
+                }
+            }
             isJumping = true;
-            //isDucking = false;
         }
 
         public void Duck()
