@@ -83,5 +83,28 @@ namespace DinoGameSpecFlow.StepDefinitions
         {
             context.Get<bool>("detected").Should().Be(detected);
         }
+
+
+        [Given(@"a score of (.*)")]
+        public void GivenAScoreOf(int p0)
+        {
+            context.Add("Score", p0);
+        }
+
+        [When(@"a speed increase is checked")]
+        public void WhenASpeedIncreaseIsChecked()
+        {
+            EnemyManager enemyManager = new();
+            enemyManager.Update(context.Get<int>("Score"));
+            context.Add("enemyManager", enemyManager);
+        }
+
+        [Then(@"an enemies velocity should be (.*)")]
+        public void ThenAnEnemiesVelocityShouldBe(int p0)
+        {
+            IDrawable? enemy = context.Get<EnemyManager>("enemyManager").GetEnemy();
+            enemy.Velocity.Should().Be(p0);
+        }
+
     }
 }

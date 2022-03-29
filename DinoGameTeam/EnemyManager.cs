@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DinoGameTeam
 {
-    internal class EnemyManager
+    public class EnemyManager
     {
         private List<IDrawable> enemies;
         private double enemyVelocity;
@@ -17,8 +17,8 @@ namespace DinoGameTeam
         public EnemyManager()
         {
             enemyVelocity = 80;
-            maxVelocity = 245;
-            acceleration = 15;
+            maxVelocity = 260;
+            acceleration = 20;
             scoreBound = 100;
 
             //load one of each enemy
@@ -54,7 +54,7 @@ namespace DinoGameTeam
             //set bounds for when the velocity increases
 
             //increases velocity if next score section is met
-            if (score >= scoreBound)
+            while (score >= scoreBound)
             {
                 //increase only if not max velocity
                 if (enemyVelocity != maxVelocity)

@@ -24,3 +24,17 @@ Scenario Outline: Collison Checks
 	| 0     | 0     | cactus cluster small 2 wide  | 0      | 0      | true     |
 	| 0     | 0     | cactus cluster medium 3 wide | 0      | 0      | true     |
 	| 0     | 0     | cactus cluster small 3 wide  | 0      | 0      | true     |
+	| 0     | 0     | large cactus                 | 50     | 0      | false    |
+
+
+Scenario Outline: Enemies Speed Up
+	Given a score of <Score>
+	When a speed increase is checked
+	Then an enemies velocity should be <Velocity>
+	Examples: 
+	| Score | Velocity |
+	| 0     | 80       |
+	| 99    | 80       |
+	| 100   | 100      |
+	| 1000  | 260      |
+
