@@ -152,12 +152,6 @@ namespace DinoGameTeam
             return false;
         }
 
-
-        public void Reset()
-        {
-
-        }
-
         public void ProcessInput()
         {
             if (Console.KeyAvailable)
