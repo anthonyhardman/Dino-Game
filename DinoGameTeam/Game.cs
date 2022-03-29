@@ -152,12 +152,6 @@ namespace DinoGameTeam
             return false;
         }
 
-
-        public void Reset()
-        {
-
-        }
-
         public void ProcessInput()
         {
             if (Console.KeyAvailable)
@@ -222,6 +216,7 @@ namespace DinoGameTeam
                 scoreText.Y = 21;
                 drawArray.Add(scoreText);
                 drawArray.Add(gameOver);
+                state = GameState.EXIT;
             }
 
             //returns an array to be passed into window.Draw()

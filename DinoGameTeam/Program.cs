@@ -4,8 +4,17 @@
     {
         public static void Main()
         {
-            Game game = new Game();
-            game.Run();
+            Game game;
+
+            do
+            {
+                game = new Game();
+                game.Run();
+
+                while (Console.KeyAvailable)
+                    Console.ReadKey(true);
+            }
+            while (Console.ReadKey(true).Key != ConsoleKey.Escape);
         }
     }
 }
