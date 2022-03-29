@@ -106,5 +106,26 @@ namespace DinoGameSpecFlow.StepDefinitions
             enemy.Velocity.Should().Be(p0);
         }
 
+
+        [Given(@"an enemy is needed")]
+        public void GivenAnEnemyIsNeeded()
+        {
+            List<IDrawable> enemiesOnScreen = new();
+            context.Add("EnemyList", enemiesOnScreen);
+        }
+
+        [When(@"the enemy manager is requested to return one")]
+        public void WhenTheEnemyManagerIsRequestedToReturnOne()
+        {
+            EnemyManager enemies = new();
+            context.Get<List<IDrawable>>("EnemyList").Add(enemies.GetEnemy());
+        }
+
+        [Then(@"it will return an enemy")]
+        public void ThenItWillReturnAnEnemy()
+        {
+            context.Get<List<IDrawable>>("EnemyList").Should().NotBeNull();
+        }
+
     }
 }

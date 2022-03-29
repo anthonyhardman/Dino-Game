@@ -38,3 +38,7 @@ Scenario Outline: Enemies Speed Up
 	| 100   | 100      |
 	| 1000  | 260      |
 
+Scenario: Enemy is retrieved
+	Given an enemy is needed
+	When the enemy manager is requested to return one
+	Then it will return an enemy
