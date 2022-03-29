@@ -6,7 +6,7 @@ namespace DinoGameTeam
     {
         private Window window { get; set; }
         private Dinosaur dino { get; set; }
-        public List<IDrawable> enemiesOnScreen;
+        private List<IDrawable> enemiesOnScreen;
         private List<int> enemiesToRemove;
         private EnemyManager enemyManager;
         private Ground ground;
