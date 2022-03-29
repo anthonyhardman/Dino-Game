@@ -91,6 +91,7 @@ Link to a feature: [Calculator](DinoGameSpecFlow/Features/Calculator.feature)
         [NUnit.Framework.TestCaseAttribute("0", "0", "cactus cluster small 2 wide", "0", "0", "true", null)]
         [NUnit.Framework.TestCaseAttribute("0", "0", "cactus cluster medium 3 wide", "0", "0", "true", null)]
         [NUnit.Framework.TestCaseAttribute("0", "0", "cactus cluster small 3 wide", "0", "0", "true", null)]
+        [NUnit.Framework.TestCaseAttribute("0", "0", "large cactus", "50", "0", "false", null)]
         public virtual void CollisonChecks(string dinoX, string dinoY, string enemyType, string enemyX, string enemyY, string detected, string[] exampleTags)
         {
             string[] @__tags = new string[] {
@@ -139,6 +140,52 @@ this.ScenarioInitialize(scenarioInfo);
 #line hidden
 #line 13
  testRunner.Then(string.Format("collision detected is {0}", detected), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Enemies Speed Up")]
+        [NUnit.Framework.TestCaseAttribute("0", "80", null)]
+        [NUnit.Framework.TestCaseAttribute("99", "80", null)]
+        [NUnit.Framework.TestCaseAttribute("100", "100", null)]
+        [NUnit.Framework.TestCaseAttribute("1000", "260", null)]
+        public virtual void EnemiesSpeedUp(string score, string velocity, string[] exampleTags)
+        {
+            string[] tagsOfScenario = exampleTags;
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            argumentsOfScenario.Add("Score", score);
+            argumentsOfScenario.Add("Velocity", velocity);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Enemies Speed Up", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 30
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 31
+ testRunner.Given(string.Format("a score of {0}", score), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 32
+ testRunner.When("a speed increase is checked", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 33
+ testRunner.Then(string.Format("an enemies velocity should be {0}", velocity), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
