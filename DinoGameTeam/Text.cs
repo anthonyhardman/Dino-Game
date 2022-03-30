@@ -54,6 +54,8 @@ namespace DinoGameTeam
 
         public void UpdateTextColor(int r, int g, int b)
         {
+            _color = (r, g, b);
+
             foreach (Pixel pixel in Pixels)
             {
                 pixel.TextColor = Utils.RGBtoTextColor(r, g, b);
@@ -62,6 +64,8 @@ namespace DinoGameTeam
 
         public void UpdateBackgroundColor(int r, int g, int b)
         {
+            _backgroundColor = (r, g, b);
+
             foreach (Pixel pixel in Pixels)
             {
                 pixel.UseConsoleBackground = false;
