@@ -11,8 +11,9 @@
             {
                 game = new Game();
                 game.Run();
-                    while (Console.KeyAvailable)
-                        Console.ReadKey(true); 
+                while (Console.KeyAvailable)
+                    Console.ReadKey(true); 
+                restart = false;
                 while (!restart)
                 {
                     if (Console.KeyAvailable)
