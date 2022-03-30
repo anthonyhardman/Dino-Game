@@ -4,7 +4,7 @@ namespace DinoGameTeam
 {
     public class Game
     {
-        private Window window { get; set; }
+        public Window window { get; set; }
         private Dinosaur dino { get; set; }
         private List<IDrawable> enemiesOnScreen;
         private List<int> enemiesToRemove;
@@ -17,8 +17,8 @@ namespace DinoGameTeam
         private double deltaTime = 0.0;
         private DateTime lastFrame= DateTime.Now;
         private Text start;
-        private Text scoreText = new Text("Score: 0123456789", 0, 0, 0, 0, 0, false, 0, 125, 33, 255);
-        private Text gameOver = new Text("resources/gameOver/gameover.txt", 72, 15, 255, 0, 0, true);
+        public Text scoreText = new Text("Score: 0123456789", 0, 0, 0, 0, 0, false, 0, 125, 33, 255);
+        public Text gameOver = new Text("resources/gameOver/gameover.txt", 72, 15, 255, 0, 0, true);
         private int score;
         
 
@@ -52,7 +52,7 @@ namespace DinoGameTeam
                 {
                     //places enemy
                     placeEnemy();
-                    //moes dino
+                    //moves dino
                     dino.Update(deltaTime);
                     //moves all enemies
                     foreach (IDrawable enemy in enemiesOnScreen)
@@ -212,11 +212,17 @@ namespace DinoGameTeam
             //display game over
             else if (state == GameState.GAMEOVER)
             {
-                scoreText.X = 95;
-                scoreText.Y = 21;
+                scoreText.X = 0;
+                scoreText.Y = 0;
                 drawArray.Add(scoreText);
                 drawArray.Add(gameOver);
                 state = GameState.EXIT;
+            }
+            else if (state==GameState.EXIT)
+            {
+
+                drawArray.Add(scoreText);
+                drawArray.Add(gameOver);
             }
 
             //returns an array to be passed into window.Draw()

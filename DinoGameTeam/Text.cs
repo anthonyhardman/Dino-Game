@@ -34,10 +34,10 @@ namespace DinoGameTeam
                 Pixels = Utils.LoadPixelsFromString(textOrFile, frontR, frontG, frontB, depth, backR, backG, backB);
             }
         }
-
+        //Is only used for the credits to scroll up.
         public void Update(double dT)
         {
-            throw new NotImplementedException();
+           
         }
 
         public void UpdateText(string textOrFile, bool file = false)
