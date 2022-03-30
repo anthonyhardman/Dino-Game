@@ -92,6 +92,7 @@ Link to a feature: [Calculator](DinoGameSpecFlow/Features/Calculator.feature)
         [NUnit.Framework.TestCaseAttribute("0", "0", "cactus cluster medium 3 wide", "0", "0", "true", null)]
         [NUnit.Framework.TestCaseAttribute("0", "0", "cactus cluster small 3 wide", "0", "0", "true", null)]
         [NUnit.Framework.TestCaseAttribute("0", "0", "large cactus", "50", "0", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("0", "0", "bird", "0", "0", "true", null)]
         public virtual void CollisonChecks(string dinoX, string dinoY, string enemyType, string enemyX, string enemyY, string detected, string[] exampleTags)
         {
             string[] @__tags = new string[] {
@@ -158,7 +159,7 @@ this.ScenarioInitialize(scenarioInfo);
             argumentsOfScenario.Add("Score", score);
             argumentsOfScenario.Add("Velocity", velocity);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Enemies Speed Up", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 30
+#line 31
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -178,13 +179,13 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 31
+#line 32
  testRunner.Given(string.Format("a score of {0}", score), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 32
+#line 33
  testRunner.When("a speed increase is checked", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 33
+#line 34
  testRunner.Then(string.Format("an enemies velocity should be {0}", velocity), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -198,7 +199,7 @@ this.ScenarioInitialize(scenarioInfo);
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Enemy is retrieved", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 41
+#line 42
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -218,13 +219,13 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 42
+#line 43
  testRunner.Given("an enemy is needed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 43
+#line 44
  testRunner.When("the enemy manager is requested to return one", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 44
+#line 45
  testRunner.Then("it will return an enemy", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }

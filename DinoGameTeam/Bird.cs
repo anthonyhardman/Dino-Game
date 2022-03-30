@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DinoGameTeam
 {
-    internal class Bird : IDrawable
+    public class Bird : IDrawable
     {
         public double X { get; set; }
         public double Y { get; set; }
@@ -20,6 +20,11 @@ namespace DinoGameTeam
             X = 230;
             flyingAnimation = new Animation(0.1, '¥', "Resources/Bird/flying/birdflying1.dop",
                 "Resources/Bird/flying/birdflying2.dop");
+        }
+
+        public Bird()
+        {
+            Pixels = Utils.LoadPixelsFromFile("Resources/Bird/flying/birdflying1.dop", '¥');
         }
 
         public void Update(double dT)

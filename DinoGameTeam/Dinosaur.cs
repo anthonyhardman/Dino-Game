@@ -47,6 +47,11 @@ namespace DinoGameTeam
             if (isJumping)
             {
                 Y += (0.25 * acceleration * dT * dT) + (Velocity * dT);
+                if (Y < 16)
+                {
+                    Velocity = 0;
+                    Y = 16;
+                }
                 if (Y >= worldZero)
                 {
                     Y = worldZero;
