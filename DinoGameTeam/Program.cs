@@ -5,6 +5,7 @@
         public static void Main()
         {
             bool restart = false;
+            bool quit = false;
             Game game;
 
             do
@@ -18,14 +19,25 @@
                 while (!restart)
                 {
                     if (Console.KeyAvailable)
-                    { restart = true; }
+                    {
+                        ConsoleKey key = Console.ReadKey().Key;
+                        if (key == ConsoleKey.R)
+                        {
+                            restart = true; 
+                        }
+                        else if (key == ConsoleKey.Escape)
+                        {
+                            quit = true;
+                            break;
+                        }
+                    }
                     
                     game.gameOver.Y -= .04;
                     game.window.Draw(game.getDrawableArray());
                 }
 
             }
-            while (Console.ReadKey(true).Key != ConsoleKey.Escape);
+            while (!quit);
         }
     }
 }
