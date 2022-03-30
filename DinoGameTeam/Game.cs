@@ -59,12 +59,24 @@ namespace DinoGameTeam
                     {
                         enemy.Update(deltaTime);
                     }
+
                     //moves ground
                     ground.Update(deltaTime);
                     score = (int)(10 * (DateTime.Now - beginningTime).TotalSeconds);
+
                     //update scoreText value
                     scoreText.UpdateText($"Score: {score}");
-                    //update score color every 500
+
+                    // Updates score background color every 500pts.
+                    if (score != 0 && score % 500 == 0)
+                    {
+                        // Gets a new color.
+                        Tuple<int, int, int> color = colorRNG();
+
+                        // Updates background color for score.
+                        scoreText.UpdateBackgroundColor(color.Item1, color.Item2, color.Item3);
+                    }
+                    
 
                     enemyManager.Update(score);
 
@@ -94,6 +106,41 @@ namespace DinoGameTeam
                 Console.SetCursorPosition(0, 45);
                 // ---------
             }
+        }
+
+        // Generates three random integers between 0 and 255.
+        public Tuple<int, int, int> colorRNG()
+        {
+            Random rng = new Random();
+            int[] array = new int[3];
+
+            // Limits how dark the pixel can be.
+            int colorLimit = 128;
+
+            // Stores a random integer for r, g, and b.
+            for (int i = 0; i < 3; i++)
+            {
+                array[i] = rng.Next(255);
+            }
+
+            // Determines if color selected is bright enough and redoes operation if necessary.
+            for (int i = 0; i < 3; i++)
+            {
+                int j = i + 1;
+
+                if (j == 3)
+                {
+                    j = 0;
+                }
+
+                while (array[i] < colorLimit && array[j] < colorLimit)
+                {
+                    array[i] = rng.Next(255);
+                }
+            }
+
+            // Returns r, g, and b as a tuple.
+            return new Tuple<int, int, int>(array[0], array[1], array[2]);
         }
 
         public void placeEnemy() // Receive enemies from EnemyManager queue and place them in game.
