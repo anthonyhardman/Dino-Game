@@ -50,7 +50,18 @@ Scenario Outline: Dino Jump
 	Then the dino position <Y> the jumpState is <isjumping>
 	Examples: 
 	| jumps | dt | Y | isjumping |
-	| true  |  5 | 43| true      |
-	| true  |  5 | 43| true      |
-	| true  |  5 | 43| true      |
-	| true  |  5 | 43| true      |
+	| true  |  1 | 43| true      |
+	| true  |  5 | 43| false     |
+	| true  |  2 | 43| false     |
+	| true  | 0.2| 43| true      |
+
+Scenario Outline: Dino ducks
+	Given a dino ducks <ducks>
+	When a <dt> amount of time passes
+	Then the dinos position <Y> and duckState is <isDucking>
+	Examples: 
+	| ducks | dt | Y | isDucking |
+	| true  |  1 | 43| true      |
+	| true  |  5 | 43| false     |
+	| true  |  2 | 43| false     |
+	| true  | 0.2| 43| true      |

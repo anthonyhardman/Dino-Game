@@ -234,10 +234,10 @@ this.ScenarioInitialize(scenarioInfo);
         
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Dino Jump")]
-        [NUnit.Framework.TestCaseAttribute("true", "5", "43", "true", null)]
-        [NUnit.Framework.TestCaseAttribute("true", "5", "43", "true", null)]
-        [NUnit.Framework.TestCaseAttribute("true", "5", "43", "true", null)]
-        [NUnit.Framework.TestCaseAttribute("true", "5", "43", "true", null)]
+        [NUnit.Framework.TestCaseAttribute("true", "1", "43", "true", null)]
+        [NUnit.Framework.TestCaseAttribute("true", "5", "43", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("true", "2", "43", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("true", "0.2", "43", "true", null)]
         public virtual void DinoJump(string jumps, string dt, string y, string isjumping, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
@@ -275,6 +275,54 @@ this.ScenarioInitialize(scenarioInfo);
 #line hidden
 #line 50
  testRunner.Then(string.Format("the dino position {0} the jumpState is {1}", y, isjumping), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Dino ducks")]
+        [NUnit.Framework.TestCaseAttribute("true", "1", "43", "true", null)]
+        [NUnit.Framework.TestCaseAttribute("true", "5", "43", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("true", "2", "43", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("true", "0.2", "43", "true", null)]
+        public virtual void DinoDucks(string ducks, string dt, string y, string isDucking, string[] exampleTags)
+        {
+            string[] tagsOfScenario = exampleTags;
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            argumentsOfScenario.Add("ducks", ducks);
+            argumentsOfScenario.Add("dt", dt);
+            argumentsOfScenario.Add("Y", y);
+            argumentsOfScenario.Add("isDucking", isDucking);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Dino ducks", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 58
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 59
+ testRunner.Given(string.Format("a dino ducks {0}", ducks), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 60
+ testRunner.When(string.Format("a {0} amount of time passes", dt), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 61
+ testRunner.Then(string.Format("the dinos position {0} and duckState is {1}", y, isDucking), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();

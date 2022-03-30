@@ -133,38 +133,55 @@ namespace DinoGameSpecFlow.StepDefinitions
         }
 
 
-
-        [Given(@"Dino Jumps")]
-        public void GivenDinoJumps()
-        {
-            context.Get<Dinosaur>("dinoJump").Jump();
-        }
-
         [Given(@"a dino jumps (.*)")]
         public void GivenADinoJumpsTrue(bool p0)
         {
-            throw new PendingStepException();
+            if (p0) 
+            {
+                context.Get<Dinosaur>("dinoJump").Jump();   
+            }
         }
 
         [When(@"a (.*) amount of time passes")]
-        public void WhenAAmountOfTimePasses(int p0)
+        public void WhenAAmountOfTimePasses(double p0)
         {
-            throw new PendingStepException();
+            for (int i = 0; i < p0; i++)
+            {
+                context.Get<Dinosaur>("dinoJump").Update(1);
+                context.Get<Dinosaur>("dinoDuck").Update(1);
+            }
         }
 
         [Then(@"the dino position (.*) the jumpState is (.*)")]
-        public void ThenTheDinoPositionTheJumpStateIsTrue(int p0, bool p1)
+        public void ThenTheDinoPositionTheJumpStateIsTrue(double p0, bool p1)
         {
-            throw new PendingStepException();
+            context.Get<Dinosaur>("dinoJump").isJumping.Should().Be(p1);
+            if (context.Get<Dinosaur>("dinoJump").isJumping)
+            {
+               context.Get<Dinosaur>("dinoJump").Y.Should().BeLessThan(p0);
+            }
         }
 
+        [Given(@"a dino ducks (.*)")]
+        public void GivenADinoDucksTrue(bool p0)
+        {
+            
+            if (p0)
+            { 
+              context.Get<Dinosaur>("dinoDuck").Duck();
+            }
+        }
 
+        [Then(@"the dinos position (.*) and duckState is (.*)")]
+        public void ThenTheDinosPositionAndDuckStateIsTrue(double p0, bool p1)
+        {
 
-
-
-
-
-
+            context.Get<Dinosaur>("dinoDuck").isDucking.Should().Be(p1);
+            if (context.Get<Dinosaur>("dinoDuck").isDucking)
+            {
+                context.Get<Dinosaur>("dinoDuck").Y.Should().Be(p0);
+            }
+        }
 
 
     }
