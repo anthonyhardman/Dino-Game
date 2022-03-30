@@ -20,6 +20,7 @@ namespace DinoGameTeam
         public Text scoreText = new Text("Score: 0123456789", 0, 0, 0, 0, 0, false, 0, 125, 33, 255);
         public Text gameOver = new Text("resources/gameOver/gameover.txt", 72, 15, 255, 0, 0, true);
         private int score;
+        private int scoreBound = 100;
         
 
         //constructor
@@ -155,7 +156,11 @@ namespace DinoGameTeam
             {
                 timeSinceEnemyPlaced += deltaTime;
             }
-            
+            while (score >= scoreBound)
+            {
+                enemyFrequency -= 0.05;
+                scoreBound += 100;
+            }
 
         }
 
