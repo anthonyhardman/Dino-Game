@@ -25,6 +25,7 @@ Scenario Outline: Collison Checks
 	| 0     | 0     | cactus cluster medium 3 wide | 0      | 0      | true     |
 	| 0     | 0     | cactus cluster small 3 wide  | 0      | 0      | true     |
 	| 0     | 0     | large cactus                 | 50     | 0      | false    |
+	| 0     | 0     | bird                         | 0      | 0      | true     |
 
 
 Scenario Outline: Enemies Speed Up

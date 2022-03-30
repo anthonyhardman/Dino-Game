@@ -31,6 +31,9 @@ namespace DinoGameSpecFlow.StepDefinitions
 
             switch (enemy)
             {
+                case "bird":
+                    enemyObj = new Bird();
+                    break;
                 case "large cactus":
                     enemyObj = new Cactus("cactusH.dop");
                     break;

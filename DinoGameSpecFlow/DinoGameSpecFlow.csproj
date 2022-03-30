@@ -24,4 +24,13 @@
     <ProjectReference Include="..\DinoGameTeam\DinoGameTeam.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Resources\Bird\flying\birdFlying1.dop">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Bird\flying\birdFlying2.dop">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
