@@ -4,15 +4,24 @@
     {
         public static void Main()
         {
+            bool restart = false;
             Game game;
 
             do
             {
                 game = new Game();
                 game.Run();
+                    while (Console.KeyAvailable)
+                        Console.ReadKey(true); 
+                while (!restart)
+                {
+                    if (Console.KeyAvailable)
+                    { restart = true; }
+                    
+                    game.gameOver.Y -= .04;
+                    game.window.Draw(game.getDrawableArray());
+                }
 
-                while (Console.KeyAvailable)
-                    Console.ReadKey(true);
             }
             while (Console.ReadKey(true).Key != ConsoleKey.Escape);
         }
