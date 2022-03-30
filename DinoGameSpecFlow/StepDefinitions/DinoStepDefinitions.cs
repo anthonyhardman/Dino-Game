@@ -12,6 +12,8 @@ namespace DinoGameSpecFlow.StepDefinitions
         public DinoStepDefinitions(ScenarioContext context)
         {
             this.context = context;
+            context.Add("dinoJump", new Dinosaur());
+            context.Add("dinoDuck", new Dinosaur());
         }
 
         [Given(@"a dino with position \((.*), (.*)\)")]
@@ -129,6 +131,41 @@ namespace DinoGameSpecFlow.StepDefinitions
         {
             context.Get<List<IDrawable>>("EnemyList").Should().NotBeNull();
         }
+
+
+
+        [Given(@"Dino Jumps")]
+        public void GivenDinoJumps()
+        {
+            context.Get<Dinosaur>("dinoJump").Jump();
+        }
+
+        [Given(@"a dino jumps (.*)")]
+        public void GivenADinoJumpsTrue(bool p0)
+        {
+            throw new PendingStepException();
+        }
+
+        [When(@"a (.*) amount of time passes")]
+        public void WhenAAmountOfTimePasses(int p0)
+        {
+            throw new PendingStepException();
+        }
+
+        [Then(@"the dino position (.*) the jumpState is (.*)")]
+        public void ThenTheDinoPositionTheJumpStateIsTrue(int p0)
+        {
+            throw new PendingStepException();
+        }
+
+
+
+
+
+
+
+
+
 
     }
 }

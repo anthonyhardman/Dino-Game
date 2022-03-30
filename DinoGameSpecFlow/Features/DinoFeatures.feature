@@ -43,3 +43,14 @@ Scenario: Enemy is retrieved
 	Given an enemy is needed
 	When the enemy manager is requested to return one
 	Then it will return an enemy
+
+Scenario Outline: Dino Jump
+	Given a dino jumps <jumps>
+	When a <dt> amount of time passes
+	Then the dino position <Y> the jumpState is <isjumping>
+	Examples: 
+	| jumps | dt | Y | isjumping |
+	| true  |  5 | 43| true      |
+	| true  |  5 | 43| true      |
+	| true  |  5 | 43| true      |
+	| true  |  5 | 43| true      |
