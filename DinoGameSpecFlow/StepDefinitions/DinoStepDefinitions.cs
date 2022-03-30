@@ -153,7 +153,7 @@ namespace DinoGameSpecFlow.StepDefinitions
         }
 
         [Then(@"the dino position (.*) the jumpState is (.*)")]
-        public void ThenTheDinoPositionTheJumpStateIsTrue(int p0)
+        public void ThenTheDinoPositionTheJumpStateIsTrue(int p0, bool p1)
         {
             throw new PendingStepException();
         }
