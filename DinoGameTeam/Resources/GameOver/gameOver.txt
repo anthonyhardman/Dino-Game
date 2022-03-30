@@ -6,7 +6,7 @@
 
 
 
-              Press any key to play again.
+              Press 'R' key to play again.
            Press the 'esc' key to leave game.
 
 
