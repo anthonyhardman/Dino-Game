@@ -14,6 +14,7 @@
 
                 while (Console.KeyAvailable)
                     Console.ReadKey(true); 
+
                 restart = false;
                 while (!restart)
                 {
