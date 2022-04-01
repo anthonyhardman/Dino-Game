@@ -26,7 +26,7 @@ namespace DinoGameTeam
             new Cactus("cactusS.dop"), new Cactus("cactusCluster1.dop"), new Cactus("cactusCluster2.dop"),
             new Cactus("cactusCluster3.dop"), new Cactus("cactusClusterH2W.dop"), new Cactus("cactusClusterM2W.dop"),
             new Cactus("cactusClusterS2W.dop"), new Cactus("cactusClusterM3W.dop"), new Cactus("cactusClusterS3W.dop"),
-            new Bird(17), new Bird(30), new Bird(36)};
+            new Bird(17), new Bird(30), new Bird(36), new Bird(43)};
         }
 
         //returns a random enemy from the list
